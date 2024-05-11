@@ -141,6 +141,7 @@ def ver_productos():
         email_productor=producto[5]
         numero_productor=producto[6]
         fotos=db.get_productos_foto(producto_id)
+        
         productos=db.get_productos_tipo(producto_id)
         print(productos)
         region=db.get_region(comuna_id)

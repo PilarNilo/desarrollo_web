@@ -25,13 +25,8 @@
             {% endfor %}</td>
             <td>{{ producto['region'] [0][0]}}</td>
             <td>{{ producto['comuna'] [0][0]}}</td>
-            <td>{% for foto_key, foto_value in producto['fotos'] %}
-                {% if foto_value is mapping %}
-                    {% set foto_tuple = (foto_value['tipo'], foto_value['url']) %}
-                {% else %}
-                    {% set foto_tuple = foto_value %}
-                {% endif %}
-                <img src="{{ url_for('static', filename='uploads/' + foto_tuple[1]) }}" alt="{{ producto }}" width="120" height="120">
+            <td>{% for foto in producto['fotos'] %}
+                <img src="{{ foto[0] }}" ><br>
             {% endfor %}
             
             </td>
