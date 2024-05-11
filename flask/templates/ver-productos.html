@@ -20,7 +20,7 @@
     {% for producto_id, producto in productos.items() %}
         <tr class="filaProducto" id="{{ producto.id }}" onclick="location.href='informacion-producto.html?id={{ producto.id }}'">
             <td>{{ producto['tipo'] }}</td>
-            <td>{{ producto['productos' [0]]}}</td>
+            <td>{{ producto['productos']}}</td>
             <td>{{ producto['region'] [0][0]}}</td>
             <td>{{ producto['comuna'] [0][0]}}</td>
             <td>{% for foto in producto['fotos'] %}
