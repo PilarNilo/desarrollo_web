@@ -142,6 +142,7 @@ def ver_productos():
         numero_productor=producto[6]
         fotos=db.get_productos_foto(producto_id)
         productos=db.get_productos_tipo(producto_id)
+        print(productos)
         region=db.get_region(comuna_id)
         print(producto_id,tipo,descripcion,comuna_id,nombre_productor,email_productor,numero_productor,fotos,productos,region)
         dicc_p[producto_id] = {'tipo': tipo, 'productos': productos,'region':region,'comuna':comuna , 'fotos': fotos}

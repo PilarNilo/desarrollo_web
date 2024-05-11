@@ -20,13 +20,20 @@
     {% for producto_id, producto in productos.items() %}
         <tr class="filaProducto" id="{{ producto.id }}" onclick="location.href='informacion-producto.html?id={{ producto.id }}'">
             <td>{{ producto['tipo'] }}</td>
-            <td>{{ producto['productos']}}</td>
+            <td>{% for prod in producto['productos'] %}
+                {{ prod[0] }}{% if not loop.last %}, {% endif %}
+            {% endfor %}</td>
             <td>{{ producto['region'] [0][0]}}</td>
             <td>{{ producto['comuna'] [0][0]}}</td>
-            <td>{% for foto in producto['fotos'] %}
-                
-                <img src="{{ url_for('static', filename='uploads/' + foto[1]) }}" alt="{{ producto }}" width="120" height="120">
+            <td>{% for foto_key, foto_value in producto['fotos'] %}
+                {% if foto_value is mapping %}
+                    {% set foto_tuple = (foto_value['tipo'], foto_value['url']) %}
+                {% else %}
+                    {% set foto_tuple = foto_value %}
+                {% endif %}
+                <img src="{{ url_for('static', filename='uploads/' + foto_tuple[1]) }}" alt="{{ producto }}" width="120" height="120">
             {% endfor %}
+            
             </td>
             
         </tr>
