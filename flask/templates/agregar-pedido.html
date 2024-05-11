@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %} Agregar Pedido {% endblock %}
+{% block css %}<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/agregar-pedido.css') }}">{% endblock %}
+{% block content %}
+
+        <div class="container">
+            <h1 style="text-align: center;">Agregar Pedido</h1>
+        <div>
+        <form class="form" method="post"> 
+
+            <div style="text-align: left;" ><label>Tipo de Producto:</label></div>
+            <br>
+
+            <div>
+                <select name="producto" id="producto">
+                    <option value="">Seleccione Tipo de producto...</option>
+                    <option value="fruta">Fruta</option>
+                    <option value="verdura">Verdura</option>
+                </select>
+            </div>
+            <br>
+
+            <div style="text-align: left;" ><label for="producto-especifico">Producto:</label></div>
+            <br>
+            
+
+            <div>
+                <select  name="producto-especifico[]" id="producto-especifico" multiple></select>
+               
+            </div> 
+            <br>
+           
+
+            <div style="text-align: left;" ><label>Descripcion:</label></div>
+            <br>
+
+            <div>
+                
+                <textarea name="descripcion" id="descripciontext" cols="50" rows="4"></textarea>
+                
+            </div>
+            <br>
+
+            <div style="text-align: left;" ><label>Región:</label></div>
+            <br>
+
+            <div >
+                <select name="regiones" id="regiones">
+                    <option value="">Seleccione Región...</option>
+                    <option value="Región de Arica y Parinacota">Región de Arica y Parinacota</option>
+                    <option value="Región de Tarapaca">Región de Tarapaca</option>
+                    <option value="Región de Antofagasta">Región de Antofagasta</option>
+                    <option value="Región de Atacama">Región de Atacama</option>
+                    <option value="Región de Coquimbo">Región de Coquimbo</option>
+                    <option value="Región de Valparaíso">Región de Valparaiso</option>
+                    <option value="Región Metropolitana de Santiago">Región Metropolitana de Santiago</option>
+                    <option value="Región del Libertador General Bernardo O'Higgins">Región del Libertador General Bernardo O'Higgins</option>
+                    <option value="Región del Maule">Región del Maule</option>
+                    <option value="Región del Ñuble">Región del Ñuble</option>
+                    <option value="Región del Biobío">Región del BioBio</option>
+                    <option value="Región de la Araucanía">Región de La Araucania</option>
+                    <option value="Región de Los Ríos">Región de de Los Rios</option>
+                    <option value="Región de Los Lagos">Región de de Los Lagos</option>
+                    <option value="Región Aysen">Región de Aysen</option>
+                    <option value="Región de Magallanes">Región de Magallanes</option>
+                </select>
+            </div>
+            <br>
+
+            <div style="text-align: left;" ><label>Comuna:</label></div>
+            <br>
+
+            <div >
+                <select name="comuna" id="comuna" >
+                </select>
+            </div>   
+            <br>
+
+            <div style="text-align: left;" ><label>Nombre Comprador:</label></div>
+            <br>
+
+            <div >
+                <input type="text" id="nombre-comprador"  />
+            </div>
+            <br>
+
+            <div style="text-align: left;" ><label>Email Comprador:</label></div>
+            <br>
+
+            <div >
+                <input type="text" id="email"  />
+            </div>
+            <br>
+
+            <div style="text-align: left;" ><label>Número Celular Comprador:</label></div>
+            <br>
+
+            <div >
+                <input type="text" id="numero-comprador"   />
+            </div>
+            <br>
+
+                <div class="button-container">
+                    <button  type="button" class="button" id="agregarpedido" onclick=agregarpedido()>Agregar Pedido</button>
+                    <button  type="button" id="menu" onclick="location.href='/'">Volver al Menú</button>
+
+                    
+                </div>
+            
+        </form>
+    </div>
+    </div>
+    {% endblock %}
+
+{% block javascript %}<script  src="{{ url_for('static', filename='js/agregar-pedido.js') }}"></script>{% endblock %}
+  

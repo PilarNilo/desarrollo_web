@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %} Información Pedido {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/informacion-pedidos.css') }}"> {% endblock %}
+
+{% block content %}
+<h1 style="text-align: center;">Informacion de Pedido</h1>
+        <div class="info-container" id="informacionPedido">
+
+            <p> Tipo: Fruta</p>
+            <p> Producto(s): Frambuesa </p>
+            <p> Región: Región Metropolitana de Santiago </p>
+            <p> Comuna: Vitacura</p>
+            <p> Nombre Comprador: Izzie Stevens</p>
+           
+          </div>
+          <div class="button-container" style="text-align: center;">
+            <button  type="button" id="menu" onclick="location.href='/'">Volver al Menú</button>
+        </div>
+{% endblock %}
+{% block javascript %} <script  src="{{ url_for('static', filename='js/informacion-pedidos.js') }}"></script> {% endblock %}

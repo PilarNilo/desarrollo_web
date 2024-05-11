@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %} Verduleria impaktrueno {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}"> {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1 style="text-align: center;" >
+        Venta de Frutas y Verduras
+    </h1>
+    <div style="text-align: center;" class="mini-container">
+        <a class="menu-page" href="/agregar-productos">Agregar Producto</a>
+    </div>
+    <div style="text-align: center;" class="mini-container">
+        <a class="menu-page" href="/ver-productos">Ver Productos</a>
+    </div>
+    <div style="text-align: center;" class="mini-container">
+        <a class="menu-page" href="/agregar-pedido">Agregar Pedido</a>
+    </div>
+    <div style="text-align: center;" class="mini-container">
+        <a class="menu-page" href="/ver-pedidos">Ver Pedidos</a>
+    </div>
+</div>
+
+{% endblock %}
+{% block javascript %} {% endblock %}

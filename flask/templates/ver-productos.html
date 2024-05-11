@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %} Ver Productos {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ver-productos.css') }}"> {% endblock %}
+
+{% block content %}
+
+<h1 style="text-align: center;">Listado de Productos</h1>
+<table class="tabla">
+    <thead>
+        <tr id="firstcolumn">
+            <th>Tipo</th>
+            <th>Producto(s)</th>
+            <th>Región</th>
+            <th>Comuna</th>
+            <th>Fotos</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    {% for producto_id, producto in productos.items() %}
+        <tr class="filaProducto" id="{{ producto.id }}" onclick="location.href='informacion-producto.html?id={{ producto.id }}'">
+            <td>{{ producto['tipo'] }}</td>
+            <td>{{ producto['productos' [0]]}}</td>
+            <td>{{ producto['region'] [0][0]}}</td>
+            <td>{{ producto['comuna'] [0][0]}}</td>
+            <td>{% for foto in producto['fotos'] %}
+                
+                <img src="{{ url_for('static', filename='uploads/' + foto[1]) }}" alt="{{ producto }}" width="120" height="120">
+            {% endfor %}
+            </td>
+            
+        </tr>
+    {% endfor %}
+    </tbody>
+
+
+
+
+</table>
+<div class="button-container" style="text-align: center;">
+    <button  type="button" id="menu" onclick="location.href='/'">Volver al Menú</button>
+</div>
+{% endblock %}
+{% block javascript %} {% endblock %}

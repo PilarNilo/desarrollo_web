@@ -1,0 +1,15 @@
+{
+    "insert_producto": "INSERT INTO producto (tipo, descripcion, comuna_id, nombre_productor, email_productor, celular_productor) VALUES (%s,%s,%s,%s,%s,%s)",
+    "insert_producto_verdura": "INSERT INTO producto_verdura_fruta (producto_id, tipo_verdura_fruta_id) VALUES (%s,%s)",
+    "insert_foto": "INSERT INTO foto (ruta_archivo, nombre_archivo, producto_id) VALUES (%s,%s,%s)",
+    "get_productos": "SELECT id, tipo, descripcion, comuna_id, nombre_productor, email_productor, celular_productor FROM producto ORDER BY id DESC",
+    "get_productos_limit": "SELECT id, tipo, descripcion, comuna_id, nombre_productor, email_productor, celular_productor FROM producto ORDER BY id DESC LIMIT 0, 5",
+    "get_productos_next": "SELECT id, tipo, descripcion, comuna_id, nombre_productor, email_productor, celular_productor FROM producto ORDER BY id DESC LIMIT 5, 5",
+    "get_productos_comuna": "SELECT PRO.id, PRO.tipo, PRO.descripcion, COM.nombre, PRO.nombre_productor, PRO.email_productor, PRO.celular_productor FROM producto PRO, comuna COM WHERE PRO.comuna_id = COM.id ORDER BY id DESC LIMIT 5, 5",
+    "get_productos_tipo": "SELECT TVF.nombre FROM tipo_verdura_fruta TVF, producto_verdura_fruta PVF WHERE TVF.id=PVF.tipo_verdura_fruta_id AND PVF.producto_id=%s",
+    "get_productos_foto": "SELECT ruta_archivo, nombre_archivo FROM foto WHERE producto_id=%s",
+    "get_last_id": "SELECT LAST_INSERT_ID()",
+    "get_last_id_producto": "SELECT id FROM producto order by id desc LIMIT 1",
+    "get_region": "select region.nombre from region LEFT JOIN comuna ON comuna.region_id=region.id WHERE comuna.id=%s",
+    "get_comuna": "select nombre from comuna WHERE id=%s"
+}

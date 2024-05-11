@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %} Informacion Producto {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/informacion-productos.css') }}"> {% endblock %}
+
+{% block content %}
+
+<h1 style="text-align: center;">Información Productos</h1>
+        <div class="info-container" id="informacionProducto">
+            <p> Tipo: Fruta</p>
+            <p> Producto(s): Frambuesa </p>
+            <p> Región: Región Metropolitana de Santiago </p>
+            <p> Comuna: Vitacura</p>
+            <p> Foto: <img id="fotoProducto" src="../img/Frambuesa.jfif" alt="Frambuesa" width="640" height="480"></p>
+           
+           
+        </div>
+        <div class="button-container" style="text-align: center;">
+            <button  type="button" id="menu" onclick="location.href='/'">Volver al Menú</button>
+        </div>
+{% endblock %}
+{% block javascript %} <script  src="{{ url_for('static', filename='js/informacion-productos.js') }}"></script> {% endblock %}

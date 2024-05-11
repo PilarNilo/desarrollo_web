@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %} Ver Pedidos {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ver-pedidos.css') }}"> {% endblock %}
+
+{% block content %}
+
+<h1 style="text-align: center;">Listado de Pedidos</h1>
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Producto(s)</th>
+                    <th>Región</th>
+                    <th>Comuna</th>
+                    <th>Nombre Comprador</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="filaPedido" id=comprador1 onclick="location.href='informacion-pedido.html?id=comprador1'">
+                    <td>Fruta </td>
+                    <td>Frambuesa, Arándano, Durazno </td>
+                    <td>Región Metropolitana de Santiago </td>
+                    <td>Vitacura </td>
+                    <td>Izzie Stevens</td>
+                </tr>
+                <tr class="filaPedido" id=comprador2 onclick="location.href='../informacion-pedido.html?id=comprador2'">
+                    <td>Verdura </td>
+                    <td>Espinaca, Repollo </td>
+                    <td>Región de la Araucanía </td>
+                    <td>Curacautín  </td>
+                    <td>Miranda Bailey  </td>
+                </tr>
+                <tr class="filaPedido" id=comprador3 onclick="location.href='../informacion-pedido.html?id=comprador3'">
+                    <td>Fruta   </td>
+                    <td>Mango</td>
+                    <td>Región del Libertador General Bernardo O'Higgins  </td>
+                    <td>Codegua </td>
+                    <td>Cristina Yang  </td>
+                </tr>
+                <tr class="filaPedido" id=comprador4 onclick="location.href='../informacion-pedido.html?id=comprador4'">
+                    <td>Verdura   </td>
+                    <td>Remolacha </td>
+                    <td>Región de Magallanes  </td>
+                    <td>Cabo de Hornos </td>
+                    <td>Derek Shepherd  </td>
+                </tr>
+                <tr class="filaPedido" id=comprador5 onclick="location.href='../informacion-pedido.html?id=comprador5'">
+                    <td>Fruta   </td>
+                    <td>Pistacho, Almendra, Avellana, Maní</td>
+                    <td>Región de Antofagasta  </td>
+                    <td>Mejillones </td>
+                    <td>Meredith Grey </td>
+                </tr>
+            </tbody>
+
+
+
+
+        </table>
+
+
+        <div class="button-container" style="text-align: center;">
+            <button  type="button" id="menu" onclick="location.href='/'">Volver al Menú</button>
+        </div>
+{% endblock %}
+{% block javascript %} <script src="{{ url_for('static', filename='js/ver-pedidos.js') }}"></script> {% endblock %}
