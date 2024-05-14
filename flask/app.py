@@ -33,9 +33,9 @@ def agregar_pedido():
 #agregar productos
 @app.route("/agregar-productos", methods=["GET", "POST"])
 def agregar_productos():
-    print('ESTOY EN LA FUNCION')
+    #print('ESTOY EN LA FUNCION')
     if request.method == "POST":
-        print('ESTOY EN POST')
+        #print('ESTOY EN POST')
         tipo = request.form.get("producto")
         productos= request.form.getlist("producto-especifico[]")
         descripcion = request.form.get("descripcion")
@@ -46,7 +46,7 @@ def agregar_productos():
         email_productor = request.form.get("email")
         celular_productor = request.form.get("numero-productor")
         #print(request.form)
-        print(tipo,productos,descripcion,fotos,region,comuna_id,nombre_productor,email_productor,celular_productor)
+        #print(tipo,productos,descripcion,fotos,region,comuna_id,nombre_productor,email_productor,celular_productor)
         #VALIDAMOS
         #errores que se van a mostrar
         messages = []

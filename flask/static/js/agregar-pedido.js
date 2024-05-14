@@ -42,7 +42,14 @@ const validateRegion = region => region;
 
 const validateComuna = comuna => comuna;
 
-const validateUserName = userName => userName && 80>= userName.length && userName.length>= 3;
+// const validateUserName = userName => userName && 80>= userName.length && userName.length>= 3;
+const validateUserName = userName => {
+  if (!userName.trim()) {
+    return false;
+}
+ 
+  return userName && userName.replace(/\s+/g, '').length >= 3 && userName.replace(/\s+/g, '').length <= 80;;
+};
 
 const validateEmail = email => {
     // Email validation using a regular expression
@@ -126,14 +133,23 @@ const handleFormSubmit = () => {
       } else {
         userNameInput.style.borderColor = "";
       }
-    
-      if (!validatePhone(phoneInput.value)) {
+    //necesito validar el numero de telefono solo si esuqe este se ingresa
+      if (phoneInput.value.length > 0) {
         isValid = false;
         errorMessage += "El número de teléfono debe tener +código país, código área, número.\n";
         phoneInput.style.borderColor = "red";
+
       } else {
         phoneInput.style.borderColor = "";
       }
+
+      // if (!validatePhone(phoneInput.value)) {
+      //   isValid = false;
+      //   errorMessage += "El número de teléfono debe tener +código país, código área, número.\n";
+      //   phoneInput.style.borderColor = "red";
+      // } else {
+      //   phoneInput.style.borderColor = "";
+      // }
       //validaciones de seleccion
       if (!validateProducto(productoInput.value)) {
         isValid = false;

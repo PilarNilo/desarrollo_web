@@ -34,9 +34,9 @@ def validate_region(region):
 #valida que se haya seleccionado una comuna
 def validate_comuna(comuna):
     return comuna is not None
-#valida que el nombre del productor no esté vacío y tenga entre 3 a 80 caracteres
+#valida que el nombre del productor no esté vacío y tenga entre 3 a 80 caracteres, además permite que no se ingresen solo espacios
 def validate_nombre_productor(nombre_productor):
-    return nombre_productor is not None and 80>= len(nombre_productor) and len(nombre_productor)>= 3
+    return nombre_productor is not None and 80>= len(nombre_productor) and len(nombre_productor)>= 3 and nombre_productor.count(' ') <= 1
 #valida que el email del productor sea un email válido
 def validate_email(email):
     regex = r'^\S+@\S+\.\S+$'
