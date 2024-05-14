@@ -96,179 +96,54 @@ regionSeleccion.addEventListener('change', mostrarComunasSeleccion); //conexion 
 
 //........................................................
 //envio y validacion del formulario
-// const handleFormSubmit = () => {
-//     console.log("Validando formulario...")
-//   //obtengo los id
-//     const productoInput=document.getElementById("producto");
-//     const tipoProductoInput=document.getElementById("producto-especifico")
+let addproduct = document.getElementById("enviar");
+let confirmacion = document.getElementById("popupconf");
 
-//     const imageInput= document.getElementById("fileupload");
-
-//     const regionInput=document.getElementById("regiones");
-//     const comunaInput=document.getElementById("comuna");
-
-//     const userNameInput = document.getElementById("nombre-productor");
-//     const emailInput = document.getElementById("email");
-//     const phoneInput = document.getElementById("numero-productor");
-    
-
-//     let isValid = true;
-//     let errorMessage = "";
-
-//     //validaciones de texto y alertas
-//       if (!validateEmail(emailInput.value)) {
-//           isValid = false;
-//           errorMessage += "Por favor, ingresa un correo electrónico válido.\n";
-//           emailInput.style.borderColor = "red";
-//       } else {
-//           emailInput.style.borderColor = "";
-//       }
-    
-//       if (!validateUserName(userNameInput.value)) {
-//         isValid = false;
-//         errorMessage += "Por favor, ingresa un nombre válido (3 caracteres mínimo).\n";
-//         userNameInput.style.borderColor = "red";
-//       } else {
-//         userNameInput.style.borderColor = "";
-//       }
-    
-//       if (!validatePhone(phoneInput.value)) {
-//         isValid = false;
-//         errorMessage += "El número de teléfono debe tener +código país, código área, número.\n";
-//         phoneInput.style.borderColor = "red";
-//       } else {
-//         phoneInput.style.borderColor = "";
-//       }
-//       //validaciones de seleccion
-//       if (!validateProducto(productoInput.value)) {
-//         isValid = false;
-//         errorMessage += "Por favor, seleccione un tipo de producto.\n";
-//         productoInput.style.borderColor = "red";
-//       } else {
-//         productoInput.style.borderColor = "";
-//       }
-//       if (!validateRegion(regionInput.value)) {
-//         isValid = false;
-//         errorMessage += "Por favor, seleccione una región.\n";
-//         regionInput.style.borderColor = "red";
-//       } else {
-//         regionInput.style.borderColor = "";
-//       }
-//       //validacion de cantidad de selecciones
-//       if (!validateComuna(comunaInput.value)) {
-//           isValid = false;
-//           errorMessage += "Por favor, seleccione una comuna.\n";
-//           comunaInput.style.borderColor = "red";
-//       } else {
-//           comunaInput.style.borderColor = "";
-//       }
-//       //array de los productos seleccionados
-//       const productosSeleccionados = Array.from(tipoProductoInput.selectedOptions).map(option => option.value);
-
-//       if (!validateTipoProducto(productosSeleccionados)) {
-//         isValid = false;
-//         errorMessage += "Por favor, seleccione como mínimo 1 producto y máximo 5.\n";
-//         tipoProductoInput.style.borderColor = "red";
-//       } else {
-//         tipoProductoInput.style.borderColor = "";
-//       }
-
-//       //validacion de cantidad de imagenes/archivos subidos
-//       if (!validateFileUpload(imageInput)) {
-//         isValid = false;
-//         errorMessage += "Por favor, cargue como mínimo 1 archivo y máximo 3.\n";
-//         imageInput.style.borderColor = "red";
-//       } else {
-//         imageInput.style.borderColor = "";
-//       }
-//     //FIN DE VALIDACION, PASAR AL BOTON AGREGAR PRODUCTO
-//       //si no hay alertas, se abre una ventana emergente para confirmar o volver a editar el formulario.
-//       if (!isValid) {
-//         alert(errorMessage); 
-//       } else {
-//         openPopup();
-      
-//       }
-      
-// };
-
-
-//-------------------
-// recuperamos el boton que valida el formulario
-let submitBtn = document.getElementById("envio");
-let confirmacion = document.getElementById("confirmacion");
-
-submitBtn.addEventListener("click", () => {
-    // ocultamos el div de confirmacion
+addproduct.addEventListener("click", () => {
     confirmacion.style.display = "block";
 }
 );
 
-// esta seccion se despliega cuando el formulario es valido
-        
-let confirmoBtn = document.getElementById("confirmar");
-let noquieroBtn = document.getElementById("cancelar");
+//caso en que pasen todas las validaciones
+let confbutton = document.getElementById("confirmbutton");
+let staybutton = document.getElementById("staybutton");
 
-confirmoBtn.addEventListener("click", () => {
+confbutton.addEventListener("click", () => {
 }
 );
 
 
-noquieroBtn.addEventListener("click", () => {
+staybutton.addEventListener("click", () => {
     alert("No se ha registrado el Producto, puedes modificar el formulario.")
     // ocultamos el div de confirmacion
     confirmacion.style.display = "none";
 }
 );
+// let addbutton = document.getElementById("agregarproducto");
+// let confirmacion = document.getElementById("confirmacion");
+
+// addbutton.addEventListener("click", () => {
+    
+//     confirmacion.style.display = "block";
+// }
+// );
+
+// // esta seccion se despliega cuando el formulario es valido
+        
+// let confirmsend = document.getElementById("confirmbutton");
+// let stayform = document.getElementById("staybutton");
+
+// confirmsend.addEventListener("click", () => {
+//     alert("Hemos recibido el registro de producto. Muchas gracias.")
+   
+// }
+// );
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//---------------------------------------------------------------------
-  //funciones para la ventana emergente
-// let popup = document.getElementById("popup");
-
-// const openPopup = () => {
-//     popup.classList.add("open-popup");
-// };
-// //cierra la ventana emergente y dirige al menú (caso cuando usuario hace click en "Si, confirmo")
-// const closePopup = () => {
-//   console.log("Cerrando popup...");
-//     popup.classList.remove("open-popup");
-//     window.location.href = '/';
-// };
-// //cierra la ventana emergente (caso para cuando usuario hace click en "No")
-// const closePopup2 = () => {
-//   console.log("Cerrando popup...");
-//     popup.classList.remove("open-popup");
-// };
-
-
-
-
-
-
-//asigno las funciones correspondientes a los botones correspondientes.
-// const agregarProductoButton = document.getElementById("agregarproducto");
-
-// agregarProductoButton.addEventListener("click", handleFormSubmit);
-
-// const confirmButton = document.getElementById("confirmbutton");
-// confirmButton.addEventListener("click", closePopup);
-
-// const stayButton = document.getElementById("staybutton");
-// stayButton.addEventListener("click", closePopup2);
+// stayform.addEventListener("click", () => {
+//     confirmacion.style.display = "none";
+// }
+// );
 
 
 

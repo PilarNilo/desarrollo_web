@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for, session
-from utils.validations import *
+from utils.validations import validate_tipoproducto,validate_productos,validate_fotos,validate_region,validate_comuna,validate_nombre_productor,validate_email,validate_celular_productor
 from database import db
 from werkzeug.utils import secure_filename
 import hashlib
@@ -30,7 +30,7 @@ def index():
 @app.route("/agregar-pedido", methods=["GET", "POST"])
 def agregar_pedido():
     return render_template("agregar-pedido.html")
-#atendido por flask
+#agregar productos
 @app.route("/agregar-productos", methods=["GET", "POST"])
 def agregar_productos():
     print('ESTOY EN LA FUNCION')
@@ -45,37 +45,52 @@ def agregar_productos():
         nombre_productor = request.form.get("nombre-productor")
         email_productor = request.form.get("email")
         celular_productor = request.form.get("numero-productor")
-        print(request.form)
-        print(tipo,productos,descripcion,fotos,region,comuna_id,nombre_productor,email_productor,celular_productor)
+        #print(request.form)
+        #print(tipo,productos,descripcion,fotos,region,comuna_id,nombre_productor,email_productor,celular_productor)
         #VALIDAMOS
         #errores que se van a mostrar
         messages = []
         errores = {
-            "tipo_producto": 'Por favor, ingrese un nombre válido',
-            "producto":'Porfavor, seleccione al menos un producto',
-            "fotos": 'Por favor, ingrese un archivo válido válida',
-            "region": 'Por favor, seleccione una región',
-            "comuna": 'Por favor, seleccione una comuna',
-            "nombre": 'Por favor, ingrese un nombre válido',
-            "email":'Por favor, ingrese un correo electrónico válido',
-            "celular": 'Por favor, ingrese un número de celular válido'
+            "tipo_producto": 'Por favor, seleccione un tipo de producto.',
+            "producto":'Por favor, seleccione como mínimo 1 producto y máximo 5.',
+            "fotos": 'Por favor, cargue como mínimo 1 archivo y máximo 3.',
+            "region": 'Por favor, seleccione una región.',
+            "comuna": 'Por favor, seleccione una comuna.',
+            "nombre": 'Por favor, ingrese un nombre válido.',
+            "email":'Por favor, ingrese un correo electrónico válido.',
+            "celular": 'Por favor, ingrese un número de celular válido.'
         }
-        #validamos
-        if not validate_tipoproducto(tipo):
+        # Validar campos obligatorios
+        if not tipo:
             messages.append(errores["tipo_producto"])
-        if not validate_productos(productos):
+        if not productos:
             messages.append(errores["producto"])
+        if not fotos:
+            messages.append(errores["fotos"])
+        if not region:
+            messages.append(errores["region"])
+        if not comuna_id:
+            messages.append(errores["comuna"])
+        if not nombre_productor:
+            messages.append(errores["nombre"])
+        if not email_productor:
+            messages.append(errores["email"])
+        #validamos
+        # if not validate_tipoproducto(tipo):
+        #     messages.append(errores["tipo_producto"])
+        # if not validate_productos(productos):
+        #     messages.append(errores["producto"])
         for foto in fotos:
             if not validate_fotos(foto):
                 messages.append(errores["fotos"])
-        if not validate_region(region):
-            messages.append(errores["region"])
-        if not validate_comuna(comuna_id):
-            messages.append(errores["comuna"])
-        if not validate_nombre_productor(nombre_productor):
-            messages.append(errores["nombre"])
-        if not validate_email(email_productor):
-            messages.append(errores["email"])
+        # if not validate_region(region):
+        #     messages.append(errores["region"])
+        # if not validate_comuna(comuna_id):
+        #     messages.append(errores["comuna"])
+        # if not validate_nombre_productor(nombre_productor):
+        #     messages.append(errores["nombre"])
+        # if not validate_email(email_productor):
+        #     messages.append(errores["email"])
         if not validate_celular_productor(celular_productor):
             messages.append(errores["celular"])
 
@@ -118,6 +133,7 @@ def agregar_productos():
             # return redirect(url_for('/'))
         else:
             print('ESTOY EN el form de nuevo')
+            print(messages)
             return render_template("agregar-producto.html", messages=messages)
 
     elif request.method == "GET":
