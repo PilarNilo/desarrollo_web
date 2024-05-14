@@ -11,5 +11,6 @@
     "get_last_id": "SELECT LAST_INSERT_ID()",
     "get_last_id_producto": "SELECT id FROM producto order by id desc LIMIT 1",
     "get_region": "select region.nombre from region LEFT JOIN comuna ON comuna.region_id=region.id WHERE comuna.id=%s",
-    "get_comuna": "select nombre from comuna WHERE id=%s"
+    "get_comuna": "select nombre from comuna WHERE id=%s",
+    "get_id_producto_info": "SELECT id, tipo, descripcion, comuna_id, nombre_productor, email_productor, celular_productor FROM producto where id=%s"
 }

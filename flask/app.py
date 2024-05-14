@@ -171,7 +171,7 @@ def ver_productos():
         #print(productos)
         region=db.get_region(comuna_id)
         #print(producto_id,tipo,descripcion,comuna_id,nombre_productor,email_productor,numero_productor,fotos,productos,region)
-        dicc_p[producto_id] = {'tipo': tipo, 'productos': productos,'region':region,'comuna':comuna , 'fotos': fotos}
+        dicc_p[producto_id] = {'id':producto_id,'tipo': tipo, 'productos': productos,'region':region,'comuna':comuna , 'fotos': fotos}
 
     return render_template("ver-productos.html",productos=dicc_p,cantidad=cantidad_productos)
 
@@ -180,6 +180,59 @@ def ver_productos():
 @app.route("/ver-pedidos")
 def ver_pedidos():
     return render_template("ver-pedidos.html")
+@app.route("/informacion-producto/<int:id_producto>", methods=["GET"])
+def informacion_producto(id_producto):
+    # dicc_p_v={}
+    # producto_info=db.get_productos()
+    # for producto in producto_info:
+    #     #print(producto)
+    #     producto_id=producto[0]
+    #     tipo=producto[1]
+    #     descripcion=producto[2]
+    #     comuna_id=producto[3]
+    #     comuna=db.get_comuna(comuna_id)
+    #     nombre_productor=producto[4]
+    #     email_productor=producto[5]
+    #     numero_productor=producto[6]
+    #     fotos=db.get_productos_foto(producto_id)
+    #     productos=db.get_productos_tipo(producto_id)
+    #     region=db.get_region(comuna_id)
+    #     dicc_p_v[producto_id] = {'id':id_producto,'tipo': tipo, 'productos': productos,'descripción':descripcion,'region':region,'comuna':comuna , 'fotos': fotos, 'nombre_productor':nombre_productor,'email_productor':email_productor,'numero_productor':numero_productor}
+    # return render_template('informacion-producto.html', info_producto=dicc_p_v)
+    producto_info = db.get_id_producto_info(id_producto)  # Obtener información del producto por su ID
+    print(producto_info[0])
+    if producto_info:
+        producto_id = producto_info[0][0]
+        tipo = producto_info[0][1]
+        descripcion = producto_info[0][2]
+        comuna_id = producto_info[0][3]
+        comuna = db.get_comuna(comuna_id)
+        nombre_productor = producto_info[0][4]
+        email_productor = producto_info[0][5]
+        numero_productor = producto_info[0][6]
+        fotos = db.get_productos_foto(producto_id)
+        productos = db.get_productos_tipo(producto_id)
+        region = db.get_region(comuna_id)
+        
+        info_producto = {
+            'id': producto_id,
+            'tipo': tipo,
+            'productos': productos,
+            'descripcion': descripcion,
+            'region': region,
+            'comuna': comuna,
+            'fotos': fotos,
+            'nombre_productor': nombre_productor,
+            'email_productor': email_productor,
+            'numero_productor': numero_productor
+        }
+        return render_template('informacion-producto.html', info_producto=info_producto)
+    else:
+        # Manejar el caso donde el producto no se encuentra
+        return render_template('informacion-producto.html', info_producto=None)
+
+
+
 
 
 

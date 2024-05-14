@@ -136,3 +136,9 @@ def get_comuna(comuna):
 	cursor.execute(QUERY_DICT["get_comuna"],(comuna,))
 	comunas = cursor.fetchall()
 	return comunas
+def get_id_producto_info(id):
+	conn = get_conn()
+	cursor= conn.cursor()
+	cursor.execute(QUERY_DICT["get_id_producto_info"],(id,))
+	id_producto_info = cursor.fetchall()
+	return id_producto_info

@@ -18,7 +18,7 @@
     <tbody>
         <!-- hola -->
     {% for producto_id, producto in productos.items() %}
-        <tr class="filaProducto" id="{{ producto.id }}" onclick="location.href='informacion-producto.html?id={{ producto.id }}'">
+        <tr class="filaProducto" id="{{ producto.id }}" onclick="location.href='{{ url_for('informacion_producto', id_producto=producto['id']) }}'">
             <td>{{ producto['tipo'] }}</td>
             <td>{% for prod in producto['productos'] %}
                 {{ prod[0] }}{% if not loop.last %}, {% endif %}
