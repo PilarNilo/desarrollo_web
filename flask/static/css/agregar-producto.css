@@ -46,7 +46,7 @@ label {
 button {
     display: inline-block;
     border-radius: 40px;
-    background-color: #6656eead;
+    background-color: #8f83ffad;
     border: none;
     color: black;
     text-align: center;
@@ -74,25 +74,26 @@ button {
     background: white;
     border-radius: 40px;
     position: absolute;
-    top: 50%;
+    top: 50%; /* Centrar verticalmente */
     left: 50%;
-    transform: translate(-50%,-50%) scale(0.1);
+    transform: translate(-50%, -50%) scale(0.1); /* Centrar horizontalmente y ajustar verticalmente */
     text-align: center;
     padding: 0 30px 30px;
     color: black;
     visibility: hidden;
     transition: transform 0.4s,top 0.4s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.popup button{
+
+.popupbutton{
     width: 100%;
     margin-top: 50px;
     padding: 10px 0;
     background: #eab2f1;
     color: black;
     border-radius: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgb(0, 0, 0);
     
 }
 .open-popup{
@@ -100,4 +101,19 @@ button {
     top: 50%;
     transform: translate(-50%,-50%) scale(1);
 
+}
+.error {
+    color: black;
+    font-size: small;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ff919196;
+    border-color: black;
+    position: relative;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50% , 0%);
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }

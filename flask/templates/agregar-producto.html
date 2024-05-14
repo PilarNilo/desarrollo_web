@@ -7,6 +7,7 @@
 <div class="container">
     <h1 style="text-align: center;">Agregar Producto</h1>
 <div>
+    
     <!-- forma de mostrar los errores en la página, en vez de mostrar directamente en el js con el handle submit-->
 <div id="message" hidden>
     <h3>El formulario contiene errores: </h3>
@@ -14,7 +15,7 @@
     </ul>
 </div>
 {% if messages %}
-<div id="message" >
+<div class="error" id="message-visible" >
     <h3>El formulario contiene errores:</h3>
 
         {% for message in messages %}
@@ -25,7 +26,16 @@
     
 <form class="form" id="form-productos" action="{{ url_for('agregar_productos') }}" method="POST" enctype="multipart/form-data" >
 <!-- <form class="form" method="POST" action="agregar_productos", enctype="multipart/form-data"> -Si es method get, dirige al mismo formulario. Con post hay error al confirmar -->
-
+    <!-- mensaje de confirmación para enviar el formulario y empezar la validación -->
+    <div id="popupconf" hidden >
+        <h2 >¿Confirma el registro de este producto?</h2>
+        <button type="submit" class="popupbutton" id="confirmbutton" onclick="location.href='/'">
+            Sí, confirmo
+        </button>
+        <button type="button" class="popupbutton" id="staybutton">
+            No, quiero volver al formulario.
+        </button>
+    </div>
     <div style="text-align: left;" ><label>Tipo de Producto:</label></div>
     <br>
 
@@ -128,53 +138,21 @@
         <input type="text" name="numero-productor" id="numero-productor"  />
     </div>
     <br>
-
-    <div id="validacion">
-        <button type="button" class="boton" id="enviar">
+    
+    <div class="button-container">
+    <div class="popupContainer" id="validacion">
+        <button type="button" class="button" id="enviar">
             Registrar Productos
         </button>
-    </div>
-
-    <!-- botones de confirmacion inicialmente ocultos -->
-    <div id="popupconf" hidden >
-        <h3>¿Confirma el registro de este producto?</h3>
-        <button type="submit" class="boton" id="confirmbutton" onclick="location.href='/'">
-            Sí, confirmo
-        </button>
-        <button type="button" class="boton" id="staybutton">
-            No, quiero volver al formulario.
-        </button>
-    </div>
-</form>
-</div>
-
-<!-- Boton para volver al menu principal -->
-<button type="button" id="back" class="button" onclick="location.href='/'">Volver al menú principal</button>
-</div>
-    <!-- <div id="validacion">
-        <button type="button" class="boton" id="agregarproducto">
-            Agregar Producto
-        </button>
-    </div>
-
-    <div id="confirmacion" hidden >
-        <h3>¿Confirma el registro de este producto?</h3>
-        <button type="submit" class="boton" id="confirmbutton" onclick="location.href='/'">
-            Sí, confirmo
-        </button>
-        <button type="button" class="boton" id="staybutton">
-            No, quiero volver al formulario.
-        </button>
-    </div>
-
-    <button type="button" id="back" class="button" onclick="location.href='/'">Volver al menú principal</button>
-</div> -->
-
+        <button type="button" id="back" class="button" onclick="location.href='/'">Volver al menú principal</button>
+    </div>  
     
 </form>
- 
 </div>
-
+</div>
+</div>  
+</form>
+</div>
 </div>
 {% endblock %}
 {% block javascript %}<script  src="{{ url_for('static', filename='js/agregar-producto.js') }}"></script> {% endblock %}

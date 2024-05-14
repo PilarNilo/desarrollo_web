@@ -100,6 +100,7 @@ let addproduct = document.getElementById("enviar");
 let confirmacion = document.getElementById("popupconf");
 
 addproduct.addEventListener("click", () => {
+
     confirmacion.style.display = "block";
 }
 );
@@ -119,31 +120,6 @@ staybutton.addEventListener("click", () => {
     confirmacion.style.display = "none";
 }
 );
-// let addbutton = document.getElementById("agregarproducto");
-// let confirmacion = document.getElementById("confirmacion");
-
-// addbutton.addEventListener("click", () => {
-    
-//     confirmacion.style.display = "block";
-// }
-// );
-
-// // esta seccion se despliega cuando el formulario es valido
-        
-// let confirmsend = document.getElementById("confirmbutton");
-// let stayform = document.getElementById("staybutton");
-
-// confirmsend.addEventListener("click", () => {
-//     alert("Hemos recibido el registro de producto. Muchas gracias.")
-   
-// }
-// );
-
-
-// stayform.addEventListener("click", () => {
-//     confirmacion.style.display = "none";
-// }
-// );
 
 
 
