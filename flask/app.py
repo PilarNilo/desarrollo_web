@@ -46,7 +46,7 @@ def agregar_productos():
         email_productor = request.form.get("email")
         celular_productor = request.form.get("numero-productor")
         #print(request.form)
-        #print(tipo,productos,descripcion,fotos,region,comuna_id,nombre_productor,email_productor,celular_productor)
+        print(tipo,productos,descripcion,fotos,region,comuna_id,nombre_productor,email_productor,celular_productor)
         #VALIDAMOS
         #errores que se van a mostrar
         messages = []
@@ -65,39 +65,38 @@ def agregar_productos():
             messages.append(errores["tipo_producto"])
         if not productos:
             messages.append(errores["producto"])
-        if not fotos:
-            messages.append(errores["fotos"])
+        if len(productos) > 5:
+            messages.append(errores["producto"])
         if not region:
             messages.append(errores["region"])
-        if not comuna_id:
-            messages.append(errores["comuna"])
-        if not nombre_productor:
-            messages.append(errores["nombre"])
-        if not email_productor:
-            messages.append(errores["email"])
+        
         #validamos
+        #por alguna razon tipo_producto y productos no funcionan
         # if not validate_tipoproducto(tipo):
+        #     print('ESTOY EN TIPO PRODUCTO')
         #     messages.append(errores["tipo_producto"])
+        #     print(messages)
         # if not validate_productos(productos):
         #     messages.append(errores["producto"])
         for foto in fotos:
             if not validate_fotos(foto):
                 messages.append(errores["fotos"])
+        #por alguna razon no funciona region u.u
         # if not validate_region(region):
         #     messages.append(errores["region"])
-        # if not validate_comuna(comuna_id):
-        #     messages.append(errores["comuna"])
-        # if not validate_nombre_productor(nombre_productor):
-        #     messages.append(errores["nombre"])
-        # if not validate_email(email_productor):
-        #     messages.append(errores["email"])
-        if not validate_celular_productor(celular_productor):
+        if not validate_comuna(comuna_id):
+            messages.append(errores["comuna"])
+        if not validate_nombre_productor(nombre_productor): #funciona
+            messages.append(errores["nombre"])
+        if not validate_email(email_productor):#funciona
+            messages.append(errores["email"])
+        if not validate_celular_productor(celular_productor):#funciona
             messages.append(errores["celular"])
 
         
-        print(messages)
+        #print(messages)
         if len(messages)==0:
-            print('ESTOY EN largo cero')
+            # print('ESTOY EN largo cero')
             #si no hya errores se inserta a la base de datos
             #buscar el id de la comuna
             comuna=db.get_comunas(comuna_id)
@@ -110,11 +109,11 @@ def agregar_productos():
             id = last_id[0]
             for producto in productos:
                 id_productos=db.get_tipo_producto(producto) 
-                print(id,id_productos[0][0])
+                # print(id,id_productos[0][0])
             #insertar con insert producto verdura(producto_id,tipo_verdura_fruta_id)
                 db.insert_producto_verdura(id,id_productos[0][0])
             
-            #insertar fotos
+            #insertar fotos, usé el del auxiliar
             for foto in fotos:
                 _filename = hashlib.sha256(
                 secure_filename(foto.filename) # nombre del archivo
@@ -128,43 +127,53 @@ def agregar_productos():
                 path=os.path.join(app.config["UPLOAD_FOLDER"], img_filename)
                 db.insert_foto(path,_filename,id)
 
-            print('ESTOY EN el redirect')
+            # print('ESTOY EN el redirect')
             return redirect("/")
             # return redirect(url_for('/'))
         else:
-            print('ESTOY EN el form de nuevo')
-            print(messages)
+            # print('ESTOY EN el form de nuevo')
+            # print(messages)
             return render_template("agregar-producto.html", messages=messages)
 
     elif request.method == "GET":
         print('ESTOY EN GET')
         return render_template("agregar-producto.html")
 #desde la base de datos
-@app.route("/ver-productos")
+@app.route("/ver-productos", methods=["GET"])
 def ver_productos():
     productos_vision=db.get_productos()
+    cantidad_productos=len(productos_vision)
+    #print("CANTIDADDDDDDD"+str(cantidad_productos))
+    page = request.args.get('page', 1, type=int)
+    items_per_page = 5
+    start = (page - 1) * items_per_page
+    end = start + items_per_page
+    paginated_data = productos_vision[start:end]
+    productos_vision = paginated_data
+    
     
     dicc_p= {}
     
     for producto in productos_vision:
-        print(producto)
+        #print(producto)
         producto_id=producto[0]
         tipo=producto[1]
         descripcion=producto[2]
         comuna_id=producto[3]
         comuna=db.get_comuna(comuna_id)
-        nombre_productor=producto[4]
-        email_productor=producto[5]
-        numero_productor=producto[6]
+        
+        # nombre_productor=producto[4]
+        # email_productor=producto[5]
+        # numero_productor=producto[6]
         fotos=db.get_productos_foto(producto_id)
         
         productos=db.get_productos_tipo(producto_id)
-        print(productos)
+        #print(productos)
         region=db.get_region(comuna_id)
-        print(producto_id,tipo,descripcion,comuna_id,nombre_productor,email_productor,numero_productor,fotos,productos,region)
+        #print(producto_id,tipo,descripcion,comuna_id,nombre_productor,email_productor,numero_productor,fotos,productos,region)
         dicc_p[producto_id] = {'tipo': tipo, 'productos': productos,'region':region,'comuna':comuna , 'fotos': fotos}
 
-    return render_template("ver-productos.html",productos=dicc_p)
+    return render_template("ver-productos.html",productos=dicc_p,cantidad=cantidad_productos)
 
         
 #no es el objetivo de la tarea2

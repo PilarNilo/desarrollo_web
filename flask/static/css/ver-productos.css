@@ -40,3 +40,19 @@ button {
     cursor: pointer;
     margin: 20px 5px;
 }
+.indice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.indice a {
+    color: #7328c9;
+    float: auto;
+    padding: 1rem 1rem;
+    text-decoration: none;
+    
+}
+
