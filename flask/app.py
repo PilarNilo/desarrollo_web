@@ -213,7 +213,9 @@ def informacion_producto(id_producto):
         fotos = db.get_productos_foto(producto_id)
         productos = db.get_productos_tipo(producto_id)
         region = db.get_region(comuna_id)
-        
+        #print(producto_id, tipo, descripcion, comuna_id, nombre_productor, email_productor, numero_productor, fotos, productos, region)
+        print(fotos[0][1])
+        print('lo anterior es la fotoooo')
         info_producto = {
             'id': producto_id,
             'tipo': tipo,
@@ -226,6 +228,7 @@ def informacion_producto(id_producto):
             'email_productor': email_productor,
             'numero_productor': numero_productor
         }
+        #print(info_producto)
         return render_template('informacion-producto.html', info_producto=info_producto)
     else:
         # Manejar el caso donde el producto no se encuentra
