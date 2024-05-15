@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        <!-- hola -->
+        
     {% for producto_id, producto in productos.items() %}
         <tr class="filaProducto" id="{{ producto.id }}" onclick="location.href='{{ url_for('informacion_producto', id_producto=producto['id']) }}'">
             <td>{{ producto['tipo'] }}</td>
@@ -26,7 +26,7 @@
             <td>{{ producto['region'] [0][0]}}</td>
             <td>{{ producto['comuna'] [0][0]}}</td>
             <td>{% for foto in producto['fotos'] %}
-                <img src="{{ foto[0] }}" ><br>
+                <img id="fotoProducto" src="{{ foto[0] }}" ><br>
             {% endfor %}
             
             </td>
@@ -52,4 +52,4 @@
     <button  type="button" id="menu" onclick="location.href='/'">Volver al Menú</button>
 </div>
 {% endblock %}
-{% block javascript %} {% endblock %}
+{% block javascript %} <script  src="{{ url_for('static', filename='js/ver-productos.js') }}"></script>{% endblock %}

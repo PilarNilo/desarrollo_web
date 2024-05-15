@@ -7,8 +7,6 @@
 <h1 style="text-align: center;">Información Productos</h1>
         <div class="info-container" id="informacionProducto">
             {% if info_producto %}
-            <!-- <form action="{{ url_for('informacion_producto', id_producto=info_producto['id']) }}" method="GET"> -->
-                
                 <p>Tipo: {{ info_producto['tipo'] }}</p>
                 <p>Producto(s): {% for prod in info_producto['productos'] %}
                     {{ prod[0] }}{% if not loop.last %}, {% endif %}
@@ -19,21 +17,17 @@
                 <p> Foto:
                  {% for foto in info_producto['fotos'] %}
                 <!-- <img src = "static/uploads/" + foto[0]> <br> -->
-                <img src ="{{ url_for('static', filename='uploads/' + foto[1] + '.jpg') }}"> <br>
-                    <!-- <img src ={{foto[0]}}> <br> -->
+                <img id="fotoProducto" src ="{{ url_for('static', filename='uploads/' + foto[1] + '.jpg') }}">
                  {% endfor %} 
                 </p>
                 <p>Nombre productor: {{ info_producto['nombre_productor'] }}</p>
                 <p>Email productor: {{ info_producto['email_productor'] }}</p>
                 <p>Número productor: {{ info_producto['numero_productor'] }}</p>
             
-            <!-- </form> -->
         {% else %}
             <h2>Producto no encontrado</h2>
         {% endif %}
-            
-           
-           
+
         </div>
         <div class="button-container" style="text-align: center;">
             <button  type="button" id="menu" onclick="location.href='/'">Volver al Menú</button>

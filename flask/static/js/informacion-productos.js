@@ -1,18 +1,26 @@
-// document.addEventListener("DOMContentLoaded", ()=>{
-    
-//     const filaProducto=document.querySelectorAll("tr");
-// //al hacer click se agrandará la imagen
-//     const fotoProducto= document.getElementById("fotoProducto");
-//     fotoProducto.addEventListener("click",() =>{
-//             fotoProducto.width=1280;
-//             fotoProducto.height=1024;  
-//     });
-// //mostrar para cada fila la información correspondiente a su id 
-//     filaProducto.forEach(fila => {
-//             fila.addEventListener("click", () => {
-//                 const idProducto = fila.id;
-//                 location.href=`informacion-producto.html?id=${idProducto}`
-//             });
-//     });
+document.addEventListener("DOMContentLoaded", ()=>{
+    const fotoProducto = document.getElementById("fotoProducto");
+    const anchoInicial = 640; // Ancho inicial 
+    const altoInicial = 480; // Alto inicial
 
-// });
+    // tamaño inicial 
+    fotoProducto.width = anchoInicial;
+    fotoProducto.height = altoInicial;
+
+    const originalWidth = fotoProducto.width;
+    const originalHeight = fotoProducto.height;
+
+    // Al hacer clic en la imagen
+    fotoProducto.addEventListener("click", () => {
+        if (fotoProducto.width === originalWidth) {
+            // Si la imagen está en su tamaño original, la agrandamos
+            fotoProducto.width = 1280;
+            fotoProducto.height = 1024;
+        } else {
+            // Si la imagen está agrandada, la volvemos a su tamaño original
+            fotoProducto.width = originalWidth;
+            fotoProducto.height = originalHeight;
+        }
+    });
+
+});
