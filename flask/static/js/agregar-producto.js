@@ -105,7 +105,7 @@ addproduct.addEventListener("click", () => {
 }
 );
 
-//caso en que pasen todas las validaciones
+//si pasan todas las validaciones
 let confbutton = document.getElementById("confirmbutton");
 let staybutton = document.getElementById("staybutton");
 
@@ -115,8 +115,8 @@ confbutton.addEventListener("click", () => {
 
 
 staybutton.addEventListener("click", () => {
-    alert("No se ha registrado el Producto, puedes modificar el formulario.")
-    // ocultamos el div de confirmacion
+    alert("No se ha registrado el Producto,modifica el formulario.")
+    //ocultamos el div de confirmacion
     confirmacion.style.display = "none";
 }
 );

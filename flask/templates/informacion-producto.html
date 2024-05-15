@@ -17,7 +17,7 @@
                 <p> Foto:
                  {% for foto in info_producto['fotos'] %}
                 <!-- <img src = "static/uploads/" + foto[0]> <br> -->
-                <img id="fotoProducto" src ="{{ url_for('static', filename='uploads/' + foto[1] + '.jpg') }}">
+                <img id="fotoProducto" src ="{{ url_for('static', filename='uploads/' + foto[1] + '.jpg') }}"><br>
                  {% endfor %} 
                 </p>
                 <p>Nombre productor: {{ info_producto['nombre_productor'] }}</p>

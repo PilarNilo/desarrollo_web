@@ -43,7 +43,7 @@ def validate_email(email):
     return re.match(regex, email) is not None
 #valida que el celular del productor sea un número de 9 dígitos tipo regex
 def validate_celular_productor(celular_productor):
-    regex = r'^[0-9]{9}$'
+    regex = r'^[0-9]{0,11}$'
     
     return re.match(regex, celular_productor) is not None or not celular_productor
 

@@ -5,7 +5,7 @@ DB_NAME = "tarea2"
 DB_USERNAME = "cc5002"
 DB_PASSWORD = "programacionweb"
 DB_HOST = "localhost"
-DB_PORT = 3307
+DB_PORT = 3307 #el 3306 no me dejó u.u
 DB_CHARSET = "utf8"
 
 with open('database/query.json', 'r') as querys:
@@ -115,7 +115,7 @@ def get_comunas(comuna):
 		cursor.execute(sql,(comuna))
 		comunas = cursor.fetchall()
 		return comunas
-
+#permite enconrar el id de un tipo de producto segun el nombre
 def get_tipo_producto(tipo_producto):
 	conn = get_conn()
 	sql="SELECT id FROM tipo_verdura_fruta where nombre=%s"
@@ -123,19 +123,21 @@ def get_tipo_producto(tipo_producto):
 	cursor.execute(sql,(tipo_producto))
 	tipo_productos = cursor.fetchall()
 	return tipo_productos
-
+#obtengo la region segun el id de la comuna
 def get_region(region):
 	conn = get_conn()
 	cursor= conn.cursor()
 	cursor.execute(QUERY_DICT["get_region"],(region,))
 	regiones = cursor.fetchall()
 	return regiones
+#obtengo la comuna segun el id entregado de aquella
 def get_comuna(comuna):
 	conn = get_conn()
 	cursor= conn.cursor()
 	cursor.execute(QUERY_DICT["get_comuna"],(comuna,))
 	comunas = cursor.fetchall()
 	return comunas
+#obtengo toda la info del producto segun el id
 def get_id_producto_info(id):
 	conn = get_conn()
 	cursor= conn.cursor()

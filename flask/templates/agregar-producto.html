@@ -25,8 +25,8 @@
 {% endif %}
     
 <form class="form" id="form-productos" action="{{ url_for('agregar_productos') }}" method="POST" enctype="multipart/form-data" >
-<!-- <form class="form" method="POST" action="agregar_productos", enctype="multipart/form-data"> -Si es method get, dirige al mismo formulario. Con post hay error al confirmar -->
-    <!-- mensaje de confirmación para enviar el formulario y empezar la validación -->
+
+    <!-- mensaje de confirmación para enviar el formulario y empezar a validar -->
     <div id="popupconf" hidden >
         <h2 >¿Confirma el registro de este producto?</h2>
         <button type="submit" class="popupbutton" id="confirmbutton" onclick="location.href='/'">
@@ -40,6 +40,7 @@
     <br>
 
     <div>
+        <!-- Acá se puede ver la condicion para que la casilla se ponga con borde rojo indicando error en el formulario al validar -->
         <select name="producto" id="producto" {% if 'Por favor, seleccione un tipo de producto.' in messages %}style="border-color: red;"{% endif %}>
             <option value="">Seleccione Tipo de producto...</option>
             <option value="fruta">Fruta</option>

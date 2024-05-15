@@ -60,7 +60,7 @@ def agregar_productos():
             "email":'Por favor, ingrese un correo electrónico válido.',
             "celular": 'Por favor, ingrese un número de celular válido.'
         }
-        # Validar campos obligatorios
+        
         if not tipo:
             messages.append(errores["tipo_producto"])
         if not productos:
@@ -70,7 +70,6 @@ def agregar_productos():
         if not region:
             messages.append(errores["region"])
         
-        #validamos
         #por alguna razon tipo_producto y productos no funcionan
         # if not validate_tipoproducto(tipo):
         #     print('ESTOY EN TIPO PRODUCTO')
@@ -78,6 +77,7 @@ def agregar_productos():
         #     print(messages)
         # if not validate_productos(productos):
         #     messages.append(errores["producto"])
+
         for foto in fotos:
             if not validate_fotos(foto):
                 messages.append(errores["fotos"])
@@ -100,9 +100,9 @@ def agregar_productos():
             #si no hya errores se inserta a la base de datos
             #buscar el id de la comuna
             comuna=db.get_comunas(comuna_id)
-            #insertar con la funcion insert_producto(tipo,descripcion,comuna,nombre_productor,email_productor,celular_productor)
+            #insertar con la funcion insert_producto
             db.insert_producto(tipo,descripcion,comuna,nombre_productor,email_productor,celular_productor)
-            #buscar el id de varios productos, teniendo en cuento lo de insert producto
+            #buscar el id de varios productos, teniendo en cuenta lo de insert producto
             last_id = db.get_last_id_producto() 
             if last_id == None:
                 last_id = 0
@@ -110,7 +110,7 @@ def agregar_productos():
             for producto in productos:
                 id_productos=db.get_tipo_producto(producto) 
                 # print(id,id_productos[0][0])
-            #insertar con insert producto verdura(producto_id,tipo_verdura_fruta_id)
+            #insertar con insert producto verdura
                 db.insert_producto_verdura(id,id_productos[0][0])
             
             #insertar fotos, usé el del auxiliar
@@ -129,21 +129,22 @@ def agregar_productos():
 
             # print('ESTOY EN el redirect')
             return redirect("/")
-            # return redirect(url_for('/'))
+            
         else:
             # print('ESTOY EN el form de nuevo')
             # print(messages)
             return render_template("agregar-producto.html", messages=messages)
 
     elif request.method == "GET":
-        print('ESTOY EN GET')
+        #print('ESTOY EN GET')
         return render_template("agregar-producto.html")
-#desde la base de datos
+
 @app.route("/ver-productos", methods=["GET"])
 def ver_productos():
     productos_vision=db.get_productos()
     cantidad_productos=len(productos_vision)
     #print("CANTIDADDDDDDD"+str(cantidad_productos))
+    #limite por página a mostrar en ver productos
     page = request.args.get('page', 1, type=int)
     items_per_page = 5
     start = (page - 1) * items_per_page
@@ -151,7 +152,7 @@ def ver_productos():
     paginated_data = productos_vision[start:end]
     productos_vision = paginated_data
     
-    
+    #guardamos la info a mostrar
     dicc_p= {}
     
     for producto in productos_vision:
@@ -165,6 +166,7 @@ def ver_productos():
         # nombre_productor=producto[4]
         # email_productor=producto[5]
         # numero_productor=producto[6]
+
         fotos=db.get_productos_foto(producto_id)
         
         productos=db.get_productos_tipo(producto_id)
@@ -183,7 +185,7 @@ def ver_pedidos():
 @app.route("/informacion-producto/<int:id_producto>", methods=["GET"])
 def informacion_producto(id_producto):
     
-    producto_info = db.get_id_producto_info(id_producto)  # Obtener información del producto por su ID
+    producto_info = db.get_id_producto_info(id_producto)  #obtener información del producto por su ID
     print(producto_info[0])
     if producto_info:
         producto_id = producto_info[0][0]
@@ -198,8 +200,8 @@ def informacion_producto(id_producto):
         productos = db.get_productos_tipo(producto_id)
         region = db.get_region(comuna_id)
         #print(producto_id, tipo, descripcion, comuna_id, nombre_productor, email_productor, numero_productor, fotos, productos, region)
-        print(fotos[0][1])
-        print('lo anterior es la fotoooo')
+        #print(fotos[0][1])
+        #print('lo anterior es la fotoooo')
         info_producto = {
             'id': producto_id,
             'tipo': tipo,
