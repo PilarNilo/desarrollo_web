@@ -26,7 +26,8 @@
             <td>{{ producto['region'] [0][0]}}</td>
             <td>{{ producto['comuna'] [0][0]}}</td>
             <td>{% for foto in producto['fotos'] %}
-                <img id="fotoProducto" src="{{ foto[0] }}" ><br>
+                <img class="fotoProducto" src="{{ url_for('static', filename='uploads/' + foto[1] + '.jpg') }}" alt="fotovp" ><br>
+                <!-- <img class="fotoProducto" src="{{ foto[0] }}" alt="fotovp" ><br> -->
             {% endfor %}
             
             </td>

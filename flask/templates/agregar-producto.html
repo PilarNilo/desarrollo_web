@@ -141,19 +141,17 @@
     <br>
     
     <div class="button-container">
-    <div class="popupContainer" id="validacion">
-        <button type="button" class="button" id="enviar">
-            Agregar Producto(s)
-        </button>
-        <button type="button" id="back" class="button" onclick="location.href='/'">Volver al menú principal</button>
-    </div>  
+        <div class="popupContainer" id="validacion">
+            <button type="button" class="button" id="enviar">
+                Agregar Producto(s)
+            </button>
+            <button type="button" id="back" class="button" onclick="location.href='/'">Volver al menú principal</button>
+        </div>  
+    </div>
     
 </form>
 </div>
 </div>
-</div>  
-</form>
-</div>
-</div>
+
 {% endblock %}
 {% block javascript %}<script  src="{{ url_for('static', filename='js/agregar-producto.js') }}"></script> {% endblock %}

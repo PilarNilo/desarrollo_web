@@ -50,13 +50,12 @@ button {
 
 .indice a {
     color: #7328c9;
-    float: auto;
     padding: 1rem 1rem;
     text-decoration: none;
     
 }
 /* para el tamaño de las fotos */
-#fotoProducto {
+.fotoProducto {
     width: 120px;
     height: 120px;
 }
