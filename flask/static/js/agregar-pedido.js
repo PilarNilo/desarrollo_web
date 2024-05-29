@@ -98,115 +98,143 @@ const mostrarComunasSeleccion = () => {
 };
 regionSeleccion.addEventListener('change', mostrarComunasSeleccion); //conexion entre ambos elementos
 
+let addpedido = document.getElementById("enviar");
+let confirmacion = document.getElementById("popupconf");
+
+addpedido.addEventListener("click", () => {
+
+    confirmacion.style.display = "block";
+}
+);
+
+//si pasan todas las validaciones
+let confbutton = document.getElementById("confirmbutton");
+let staybutton = document.getElementById("staybutton");
+
+confbutton.addEventListener("click", () => {
+}
+);
+
+
+staybutton.addEventListener("click", () => {
+    alert("No se ha registrado el Pedido,modifica el formulario.")
+    //ocultamos el div de confirmacion
+    confirmacion.style.display = "none";
+}
+);
+
+
+
+
 //........................................................
 //envio y validacion del formulario
-const handleFormSubmit = () => {
-    console.log("Validando formulario...")
-  //obtengo los id
-    const productoInput=document.getElementById("producto");
-    const tipoProductoInput=document.getElementById("producto-especifico")
+// const handleFormSubmit = () => {
+//     console.log("Validando formulario...")
+//   //obtengo los id
+//     const productoInput=document.getElementById("producto");
+//     const tipoProductoInput=document.getElementById("producto-especifico")
 
-    const regionInput=document.getElementById("regiones");
-    const comunaInput=document.getElementById("comuna");
+//     const regionInput=document.getElementById("regiones");
+//     const comunaInput=document.getElementById("comuna");
 
-    const userNameInput = document.getElementById("nombre-comprador");
-    const emailInput = document.getElementById("email");
-    const phoneInput = document.getElementById("numero-comprador");
+//     const userNameInput = document.getElementById("nombre-comprador");
+//     const emailInput = document.getElementById("email");
+//     const phoneInput = document.getElementById("numero-comprador");
     
 
-    let isValid = true;
-    let errorMessage = "";
+//     let isValid = true;
+//     let errorMessage = "";
 
-    //validaciones de texto y alertas
-      if (!validateEmail(emailInput.value)) {
-          isValid = false;
-          errorMessage += "Por favor, ingresa un correo electrónico válido.\n";
-          emailInput.style.borderColor = "red";
-      } else {
-          emailInput.style.borderColor = "";
-      }
+//     //validaciones de texto y alertas
+//       if (!validateEmail(emailInput.value)) {
+//           isValid = false;
+//           errorMessage += "Por favor, ingresa un correo electrónico válido.\n";
+//           emailInput.style.borderColor = "red";
+//       } else {
+//           emailInput.style.borderColor = "";
+//       }
     
-      if (!validateUserName(userNameInput.value)) {
-        isValid = false;
-        errorMessage += "Por favor, ingresa un nombre válido (3 caracteres mínimo).\n";
-        userNameInput.style.borderColor = "red";
-      } else {
-        userNameInput.style.borderColor = "";
-      }
-    //necesito validar el numero de telefono solo si esuqe este se ingresa
-      if (phoneInput.value.length > 0) {
-        isValid = false;
-        errorMessage += "El número de teléfono debe tener +código país, código área, número.\n";
-        phoneInput.style.borderColor = "red";
+//       if (!validateUserName(userNameInput.value)) {
+//         isValid = false;
+//         errorMessage += "Por favor, ingresa un nombre válido (3 caracteres mínimo).\n";
+//         userNameInput.style.borderColor = "red";
+//       } else {
+//         userNameInput.style.borderColor = "";
+//       }
+//     //necesito validar el numero de telefono solo si esuqe este se ingresa
+//       if (phoneInput.value.length > 0) {
+//         isValid = false;
+//         errorMessage += "El número de teléfono debe tener +código país, código área, número.\n";
+//         phoneInput.style.borderColor = "red";
 
-      } else {
-        phoneInput.style.borderColor = "";
-      }
+//       } else {
+//         phoneInput.style.borderColor = "";
+//       }
 
-      // if (!validatePhone(phoneInput.value)) {
-      //   isValid = false;
-      //   errorMessage += "El número de teléfono debe tener +código país, código área, número.\n";
-      //   phoneInput.style.borderColor = "red";
-      // } else {
-      //   phoneInput.style.borderColor = "";
-      // }
-      //validaciones de seleccion
-      if (!validateProducto(productoInput.value)) {
-        isValid = false;
-        errorMessage += "Por favor, seleccione un tipo de producto.\n";
-        productoInput.style.borderColor = "red";
-      } else {
-        productoInput.style.borderColor = "";
-      }
-      if (!validateRegion(regionInput.value)) {
-        isValid = false;
-        errorMessage += "Por favor, seleccione una región.\n";
-        regionInput.style.borderColor = "red";
-      } else {
-        regionInput.style.borderColor = "";
-      }
-      //validacion de cantidad de selecciones
-      if (!validateComuna(comunaInput.value)) {
-          isValid = false;
-          errorMessage += "Por favor, seleccione una comuna.\n";
-          comunaInput.style.borderColor = "red";
-      } else {
-          comunaInput.style.borderColor = "";
-      }
-      //array de los productos seleccionados
-      const productosSeleccionados = Array.from(tipoProductoInput.selectedOptions).map(option => option.value);
+//       // if (!validatePhone(phoneInput.value)) {
+//       //   isValid = false;
+//       //   errorMessage += "El número de teléfono debe tener +código país, código área, número.\n";
+//       //   phoneInput.style.borderColor = "red";
+//       // } else {
+//       //   phoneInput.style.borderColor = "";
+//       // }
+//       //validaciones de seleccion
+//       if (!validateProducto(productoInput.value)) {
+//         isValid = false;
+//         errorMessage += "Por favor, seleccione un tipo de producto.\n";
+//         productoInput.style.borderColor = "red";
+//       } else {
+//         productoInput.style.borderColor = "";
+//       }
+//       if (!validateRegion(regionInput.value)) {
+//         isValid = false;
+//         errorMessage += "Por favor, seleccione una región.\n";
+//         regionInput.style.borderColor = "red";
+//       } else {
+//         regionInput.style.borderColor = "";
+//       }
+//       //validacion de cantidad de selecciones
+//       if (!validateComuna(comunaInput.value)) {
+//           isValid = false;
+//           errorMessage += "Por favor, seleccione una comuna.\n";
+//           comunaInput.style.borderColor = "red";
+//       } else {
+//           comunaInput.style.borderColor = "";
+//       }
+//       //array de los productos seleccionados
+//       const productosSeleccionados = Array.from(tipoProductoInput.selectedOptions).map(option => option.value);
 
-      if (!validateTipoProducto(productosSeleccionados)) {
-        isValid = false;
-        errorMessage += "Por favor, seleccione como mínimo 1 producto y máximo 5.\n";
-        tipoProductoInput.style.borderColor = "red";
-      } else {
-        tipoProductoInput.style.borderColor = "";
-      }
-    //FIN DE VALIDACION, PASAR AL BOTON AGREGAR PRODUCTO
+//       if (!validateTipoProducto(productosSeleccionados)) {
+//         isValid = false;
+//         errorMessage += "Por favor, seleccione como mínimo 1 producto y máximo 5.\n";
+//         tipoProductoInput.style.borderColor = "red";
+//       } else {
+//         tipoProductoInput.style.borderColor = "";
+//       }
+//     //FIN DE VALIDACION, PASAR AL BOTON AGREGAR PRODUCTO
       
-      if (!isValid) {
-        alert(errorMessage); 
-      } else {
-        mostrarConfirmacion()
-      }
+//       if (!isValid) {
+//         alert(errorMessage); 
+//       } else {
+//         mostrarConfirmacion()
+//       }
     
     
-};
+// };
 
-const mostrarConfirmacion = () => {
-    const confirmacion = confirm("¿Confirma el registro de este pedido?");
-    if (confirmacion) {
-        alert("Hemos recibido su pedido. Muchas gracias.");
-        window.location.href = "index.html";
-    } else {
+// const mostrarConfirmacion = () => {
+//     const confirmacion = confirm("¿Confirma el registro de este pedido?");
+//     if (confirmacion) {
+//         alert("Hemos recibido su pedido. Muchas gracias.");
+//         window.location.href = "index.html";
+//     } else {
         
-    }
-};
-//---------------------------------------------------------------------
-//asigno la funcion de validación al hacer click en el boton agregarpedido
-const agregarPedidoButton = document.getElementById("agregarpedido");
-agregarPedidoButton.addEventListener("click", handleFormSubmit);
+//     }
+// };
+// //---------------------------------------------------------------------
+// //asigno la funcion de validación al hacer click en el boton agregarpedido
+// const agregarPedidoButton = document.getElementById("agregarpedido");
+// agregarPedidoButton.addEventListener("click", handleFormSubmit);
 
 
 

@@ -6,8 +6,30 @@
         <div class="container">
             <h1 style="text-align: center;">Agregar Pedido</h1>
         <div>
-        <form class="form" method="post"> 
-
+        <div id="message" hidden>
+            <h3>El formulario contiene errores: </h3>
+            <ul id="errores">
+            </ul>
+        </div>
+        {% if messages %}
+        <div class="error" id="message-visible" >
+            <h3>El formulario contiene errores:</h3>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+        </div>
+        {% endif %}
+        <form class="form" id="form-pedidos" action="{{ url_for('agregar_pedido')}}" method="post" enctype="multipart/form-data"> 
+            <!-- mensaje de confirmación para enviar el formulario y empezar a validar -->
+            <div id="popupconf" hidden >
+                <h2 >¿Confirma el registro de este pedido?</h2>
+                <button type="submit" class="popupbutton" id="confirmbutton" onclick="location.href='/'">
+                    Sí, confirmo
+                </button>
+                <button type="button" class="popupbutton" id="staybutton">
+                    No, quiero volver al formulario.
+                </button>
+            </div>
             <div style="text-align: left;" ><label>Tipo de Producto:</label></div>
             <br>
 
@@ -99,18 +121,23 @@
                 <input type="text" id="numero-comprador"   />
             </div>
             <br>
-
-                <div class="button-container">
-                    <button  type="button" class="button" id="agregarpedido" onclick=agregarpedido()>Agregar Pedido</button>
-                    <button  type="button" id="menu" onclick="location.href='/'">Volver al Menú</button>
-
-                    
-                </div>
+            <div class="button-container">
+                <div class="popupContainer" id="validacion">
+                    <button type="button" class="button" id="enviar">
+                        Agregar Pedido(s)
+                    </button>
+                    <button type="button" id="back" class="button" onclick="location.href='/'">Volver al menú principal</button>
+                </div>  
+            </div>
+            <!-- <div class="button-container">
+                <button  type="button" class="button" id="agregarpedido" onclick=agregarpedido()>Agregar Pedido</button>
+                <button  type="button" id="menu" onclick="location.href='/'">Volver al Menú</button> 
+            </div> -->
             
         </form>
     </div>
     </div>
-    {% endblock %}
+{% endblock %}
 
 {% block javascript %}<script  src="{{ url_for('static', filename='js/agregar-pedido.js') }}"></script>{% endblock %}
   

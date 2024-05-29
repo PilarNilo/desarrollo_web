@@ -29,7 +29,94 @@ def index():
 #no es el objetivo de la tarea2
 @app.route("/agregar-pedido", methods=["GET", "POST"])
 def agregar_pedido():
-    return render_template("agregar-pedido.html")
+    #print('ESTOY EN LA FUNCION')
+    if request.method == "POST":
+        #print('ESTOY EN POST')
+        tipo = request.form.get("producto")
+        productos= request.form.getlist("producto-especifico[]")
+        descripcion = request.form.get("descripcion")
+        #fotos= request.files.getlist("filesupload")
+        region= request.form.get("regiones")
+        comuna_id = request.form.get("comuna")
+        nombre_comprador = request.form.get("nombre-comprador")
+        email_comprador = request.form.get("email")
+        celular_comprador = request.form.get("numero-comprador")
+        #print(request.form)
+        print(tipo,productos,descripcion,region,comuna_id,nombre_comprador,email_comprador,celular_comprador)
+        #VALIDAMOS
+        #errores que se van a mostrar
+        messages = []
+        errores = {
+            "tipo_producto": 'Por favor, seleccione un tipo de producto.',
+            "producto":'Por favor, seleccione como mínimo 1 producto y máximo 5.',
+            "region": 'Por favor, seleccione una región.',
+            "comuna": 'Por favor, seleccione una comuna.',
+            "nombre": 'Por favor, ingrese un nombre válido.',
+            "email":'Por favor, ingrese un correo electrónico válido.',
+            "celular": 'Por favor, ingrese un número de celular válido.'
+        }
+        
+        if not tipo:
+            messages.append(errores["tipo_producto"])
+        if not productos:
+            messages.append(errores["producto"])
+        if len(productos) > 5:
+            messages.append(errores["producto"])
+        if not region:
+            messages.append(errores["region"])
+        
+        #por alguna razon tipo_producto y productos no funcionan
+        # if not validate_tipoproducto(tipo):
+        #     print('ESTOY EN TIPO PRODUCTO')
+        #     messages.append(errores["tipo_producto"])
+        #     print(messages)
+        # if not validate_productos(productos):
+        #     messages.append(errores["producto"])
+
+        #por alguna razon no funciona region u.u
+        # if not validate_region(region):
+        #     messages.append(errores["region"])
+        if not validate_comuna(comuna_id):
+            messages.append(errores["comuna"])
+        if not validate_nombre_productor(nombre_comprador): #funciona
+            messages.append(errores["nombre"])
+        if not validate_email(email_comprador):#funciona
+            messages.append(errores["email"])
+        if not validate_celular_productor(celular_comprador):#funciona
+            messages.append(errores["celular"])
+
+        
+        #print(messages)
+        if len(messages)==0:
+            print('ESTOY EN largo cero')
+            #si no hya errores se inserta a la base de datos
+            #buscar el id de la comuna
+            # comuna=db.get_comunas(comuna_id)
+            # #insertar con la funcion insert_producto
+            # db.insert_pedido(tipo,descripcion,comuna,nombre_comprador,email_comprador,celular_comprador)
+            # #buscar el id de varios productos, teniendo en cuenta lo de insert producto
+            # last_id = db.get_last_id_producto() 
+            # if last_id == None:
+            #     last_id = 0
+            # id = last_id[0]
+            # for producto in productos:
+            #     id_productos=db.get_tipo_producto(producto) 
+                # print(id,id_productos[0][0])
+            #insertar con insert producto verdura
+                #db.insert_producto_verdura(id,id_productos[0][0])
+
+            # print('ESTOY EN el redirect')
+            return redirect("/")
+            
+        else:
+            # print('ESTOY EN el form de nuevo')
+            # print(messages)
+            return render_template("agregar-pedido.html", messages=messages)
+
+    elif request.method == "GET":
+        #print('ESTOY EN GET')
+        return render_template("agregar-pedido.html")
+    
 #agregar productos
 @app.route("/agregar-productos", methods=["GET", "POST"])
 def agregar_productos():
