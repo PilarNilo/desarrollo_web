@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %} Gráficos Generales {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/test.css') }}"> {% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <h1 style="text-align: center;">Gráficos Generales</h1>
+    <div class="stats-wrapper">
+        <div class="stats-container">
+            <figure class="highcharts-figure">
+                <div id="container_productos"></div>
+                <p class="highcharts-description">
+                    Cantidad de las frutas y verduras.
+                </p>
+            </figure>
+        </div>
+        <div class="stats-container">
+            <figure class="highcharts-figure">
+                <div id="container_pedidos"></div>
+                <p class="highcharts-description">
+                    Frecuencia de pedidos.
+                </p>
+            </figure>
+        </div>
+    </div>
+</div>
+<div class="button-container" style="text-align: center;">
+    <button  type="button" id="menu" onclick="location.href='/'">Volver al Menú</button>
+</div>
+{% endblock %}
+{% block javascript %} 
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script  src="{{ url_for('static', filename='js/test.js') }}"></script>
+{% endblock %}
+

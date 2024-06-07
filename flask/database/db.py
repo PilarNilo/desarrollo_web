@@ -144,3 +144,81 @@ def get_id_producto_info(id):
 	cursor.execute(QUERY_DICT["get_id_producto_info"],(id,))
 	id_producto_info = cursor.fetchall()
 	return id_producto_info
+
+def insert_pedido(tipo, descripcion,comuna_id, nombre_comprador,email_comprador, celular_comprador):
+    conn = get_conn()
+    cursor = conn.cursor()
+    cursor.execute(QUERY_DICT["insert_pedido"], (tipo, descripcion,comuna_id, nombre_comprador,email_comprador, celular_comprador))
+    conn.commit()
+
+def insert_pedido_verdura(pedido_id, tipo_verdura_fruta_id):
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["insert_pedido_verdura"], (pedido_id, tipo_verdura_fruta_id))
+	conn.commit()
+
+def get_pedidos():
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["get_pedidos"])
+	user = cursor.fetchall()
+	return user
+
+def get_pedidos_limit():
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["get_pedidos_limit"])
+	user = cursor.fetchall()
+	return user
+
+def get_pedidos_next():
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["get_pedidos_next"])
+	user = cursor.fetchall()
+	return user
+
+def get_pedidos_comuna():
+
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["get_pedidos_comuna"])
+	user = cursor.fetchall()
+	return user
+
+def get_pedidos_tipo(producto):
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["get_pedidos_tipo"],(producto,))
+	user = cursor.fetchall()
+	return user
+
+def get_id_pedido_info(id):
+	conn = get_conn()
+	cursor= conn.cursor()
+	cursor.execute(QUERY_DICT["get_id_pedido_info"],(id,))
+	id_pedido_info = cursor.fetchall()
+	return id_pedido_info
+
+def get_last_id_pedido():
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["get_last_id_pedido"])
+	user = cursor.fetchone()
+	return user
+
+def stats_productos():
+	conn = get_conn()
+	sql="select TVF.nombre, count(*) from producto_verdura_fruta PVF, tipo_verdura_fruta TVF where PVF.tipo_verdura_fruta_id = TVF.id group by TVF.nombre"
+	cursor = conn.cursor()
+	cursor.execute(sql)
+	user = cursor.fetchall()
+	return user
+
+def stats_pedido():
+	conn = get_conn()
+	sql="select CO.nombre, count(*) from pedido PE, comuna CO where PE.comuna_id=CO.id group by PE.comuna_id"
+	cursor= conn.cursor()
+	cursor.execute(sql)
+	user = cursor.fetchall()
+	return user

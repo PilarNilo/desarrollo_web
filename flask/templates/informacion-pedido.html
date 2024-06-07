@@ -5,19 +5,24 @@
 {% block content %}
 <h1 style="text-align: center;">Informacion de Pedido</h1>
         <div class="info-container" id="informacionPedido">
+        {% if info_pedido %}
+            <p> Tipo: {{info_pedido['tipo']}}</p>
+            <p> Producto(s): {% for ped in info_pedido['productos'] %} 
+                {{ ped[0] }}{% if not loop.last %}, {% endif %}
+            {% endfor %}</p>
+            <p> Descripcion: {{info_pedido['descripcion']}}</p> <!--Se agrega item faltante de la tarea 1-->
+            <p> Región: {{ info_pedido['region'][0][0] }} </p>
+            <p> Comuna: {{ info_pedido['comuna'] [0][0]}}</p>
+            <p> Nombre Comprador: {{ info_pedido['nombre_comprador'] }}</p>
+            <p> Email Comprador: {{ info_pedido['email_comprador'] }}</p> <!--Se agrega item faltante de la tarea 1-->
+            <p> Telefono Comprador: {{ info_pedido['numero_comprador'] }}</p> <!--Se agrega item faltante de la tarea 1-->
+        {% else %}
+            <h2>Pedido no encontrado</h2>
+        {% endif %}
 
-            <p> Tipo: Fruta</p>
-            <p> Producto(s): Frambuesa </p>
-            <p> Descripcion: Necesito 1/2 kg de frambuesas</p> <!--Se agrega item faltante de la tarea 1-->
-            <p> Región: Región Metropolitana de Santiago </p>
-            <p> Comuna: Vitacura</p>
-            <p> Nombre Comprador: Izzie Stevens</p>
-            <p> Email Comprador: Izzie.S@greysloan.com</p> <!--Se agrega item faltante de la tarea 1-->
-            <p> Telefono Comprador: +56912345678</p> <!--Se agrega item faltante de la tarea 1-->
-           
-          </div>
-          <div class="button-container" style="text-align: center;">
-            <button  type="button" id="menu" onclick="location.href='/'">Volver al Menú</button>
+        </div>
+        <div class="button-container" style="text-align: center;">
+          <button  type="button" id="menu" onclick="location.href='/'">Volver al Menú</button>
         </div>
 {% endblock %}
 {% block javascript %} <script  src="{{ url_for('static', filename='js/informacion-pedidos.js') }}"></script> {% endblock %}

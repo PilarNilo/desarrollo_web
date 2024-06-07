@@ -1,0 +1,44 @@
+:root {
+    background-image: url(../img/fondo4.jpg);
+    background-size: cover;
+    
+    background-repeat: no-repeat;
+
+    
+    --color-borde-principal: #00838F;
+    --color-borde-interno:#7CB342;
+}
+.container{
+    border: 3px solid var(--color-borde-interno);
+    height: 100%;
+    width: 80%;
+    margin: 2% auto;
+    padding: 2rem;
+    padding-top: .5rem;
+    background-color: #ffffffa2;
+    box-sizing: border-box;
+}
+
+.stats-container{
+    flex-grow: 1;
+    border: 3px solid var(--color-borde-principal);
+    height: 100%;
+    width: auto;
+    margin: 20px 0;
+    box-sizing: border-box;
+}
+
+button {
+    display: inline-block;
+    border-radius: 40px;
+    background-color: #dbdbdbfd;
+    border: 3px solid var(--color-borde-principal);
+    color: black;
+    text-align: center;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px ;
+    width: 20%;
+    cursor: pointer;
+    margin: 20px 5px;
+}

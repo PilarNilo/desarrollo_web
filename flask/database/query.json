@@ -12,5 +12,16 @@
     "get_last_id_producto": "SELECT id FROM producto order by id desc LIMIT 1",
     "get_region": "select region.nombre from region LEFT JOIN comuna ON comuna.region_id=region.id WHERE comuna.id=%s",
     "get_comuna": "select nombre from comuna WHERE id=%s",
-    "get_id_producto_info": "SELECT id, tipo, descripcion, comuna_id, nombre_productor, email_productor, celular_productor FROM producto where id=%s"
+    "get_id_producto_info": "SELECT id, tipo, descripcion, comuna_id, nombre_productor, email_productor, celular_productor FROM producto where id=%s",
+    
+    
+    "insert_pedido": "INSERT INTO pedido (tipo, descripcion, comuna_id, nombre_comprador, email_comprador, celular_comprador) VALUES (%s,%s,%s,%s,%s,%s)",
+    "insert_pedido_verdura":"INSERT INTO pedido_verdura_fruta (tipo_verdura_fruta_id, pedido_id) VALUES (%s,%s)",
+    "get_pedidos": "SELECT id, tipo, descripcion, comuna_id, nombre_comprador, email_comprador, celular_comprador FROM pedido ORDER BY id DESC",
+    "get_pedidos_limit": "SELECT id, tipo, descripcion, comuna_id, nombre_comprador, email_comprador, celular_comprador FROM pedido ORDER BY id DESC LIMIT 0, 5",
+    "get_pedidos_next": "SELECT id, tipo, descripcion, comuna_id, nombre_comprador, email_comprador, celular_comprador FROM pedido ORDER BY id DESC LIMIT 5, 5",
+    "get_pedidos_comuna": "SELECT PED.id, PED.tipo, PED.descripcion, COM.nombre, PED.nombre_comprador, PED.email_comprador, PED.celular_comprador FROM pedido PED, comuna COM WHERE PED.comuna_id = COM.id ORDER BY id DESC LIMIT 5, 5",
+    "get_pedidos_tipo": "SELECT TVF.nombre FROM tipo_verdura_fruta TVF, pedido_verdura_fruta PVF WHERE TVF.id=PVF.tipo_verdura_fruta_id AND PVF.pedido_id=%s",
+    "get_id_pedido_info": "SELECT id, tipo, descripcion, comuna_id, nombre_comprador, email_comprador, celular_comprador FROM pedido where id=%s",
+    "get_last_id_pedido": "SELECT id FROM pedido order by id desc LIMIT 1"
 }

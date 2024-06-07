@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, session
+from flask import Flask, request, render_template, redirect, url_for, session, jsonify
 from utils.validations import validate_tipoproducto,validate_productos,validate_fotos,validate_region,validate_comuna,validate_nombre_productor,validate_email,validate_celular_productor
 from database import db
 from werkzeug.utils import secure_filename
@@ -6,6 +6,7 @@ import hashlib
 import filetype
 import os
 import json
+from flask_cors import cross_origin
 
 UPLOAD_FOLDER = 'static/uploads'
 
@@ -29,9 +30,9 @@ def index():
 #no es el objetivo de la tarea2
 @app.route("/agregar-pedido", methods=["GET", "POST"])
 def agregar_pedido():
-    #print('ESTOY EN LA FUNCION')
+    print('ESTOY EN LA FUNCION')
     if request.method == "POST":
-        #print('ESTOY EN POST')
+        print('ESTOY EN POST')
         tipo = request.form.get("producto")
         productos= request.form.getlist("producto-especifico[]")
         descripcion = request.form.get("descripcion")
@@ -41,7 +42,7 @@ def agregar_pedido():
         nombre_comprador = request.form.get("nombre-comprador")
         email_comprador = request.form.get("email")
         celular_comprador = request.form.get("numero-comprador")
-        #print(request.form)
+        print(request.form)
         print(tipo,productos,descripcion,region,comuna_id,nombre_comprador,email_comprador,celular_comprador)
         #VALIDAMOS
         #errores que se van a mostrar
@@ -91,30 +92,30 @@ def agregar_pedido():
             print('ESTOY EN largo cero')
             #si no hya errores se inserta a la base de datos
             #buscar el id de la comuna
-            # comuna=db.get_comunas(comuna_id)
+            comuna=db.get_comunas(comuna_id)
             # #insertar con la funcion insert_producto
-            # db.insert_pedido(tipo,descripcion,comuna,nombre_comprador,email_comprador,celular_comprador)
+            db.insert_pedido(tipo,descripcion,comuna,nombre_comprador,email_comprador,celular_comprador)
             # #buscar el id de varios productos, teniendo en cuenta lo de insert producto
-            # last_id = db.get_last_id_producto() 
-            # if last_id == None:
-            #     last_id = 0
-            # id = last_id[0]
-            # for producto in productos:
-            #     id_productos=db.get_tipo_producto(producto) 
-                # print(id,id_productos[0][0])
+            last_id = db.get_last_id_pedido() 
+            if last_id == None:
+                last_id = 0
+            id = last_id[0]
+            for pedido in productos:
+                id_productos=db.get_tipo_producto(pedido) 
+                print(id,id_productos[0][0])
             #insertar con insert producto verdura
-                #db.insert_producto_verdura(id,id_productos[0][0])
+                db.insert_pedido_verdura(id_productos[0][0],id)
 
             # print('ESTOY EN el redirect')
             return redirect("/")
             
         else:
-            # print('ESTOY EN el form de nuevo')
-            # print(messages)
+            print('ESTOY EN el form de nuevo')
+            print(messages)
             return render_template("agregar-pedido.html", messages=messages)
 
     elif request.method == "GET":
-        #print('ESTOY EN GET')
+        print('ESTOY EN GET')
         return render_template("agregar-pedido.html")
     
 #agregar productos
@@ -214,7 +215,7 @@ def agregar_productos():
                 path=os.path.join(app.config["UPLOAD_FOLDER"], img_filename)
                 db.insert_foto(path,_filename,id)
 
-            # print('ESTOY EN el redirect')
+            print('ESTOY EN el redirect')
             return redirect("/")
             
         else:
@@ -268,7 +269,45 @@ def ver_productos():
 #no es el objetivo de la tarea2
 @app.route("/ver-pedidos")
 def ver_pedidos():
-    return render_template("ver-pedidos.html")
+    pedidos_vision=db.get_pedidos()
+    cantidad_pedidos=len(pedidos_vision)
+    #print("CANTIDADDDDDDD"+str(cantidad_pedidos))
+    #limite por página a mostrar en ver productos
+    page = request.args.get('page', 1, type=int)
+    items_per_page = 5
+    start = (page - 1) * items_per_page
+    end = start + items_per_page
+    paginated_data = pedidos_vision[start:end]
+    pedidos_vision = paginated_data
+    
+    #guardamos la info a mostrar
+    dicc_p= {}
+    
+    for pedido in pedidos_vision:
+        #print(pedido)
+        producto_id=pedido[0]
+        tipo=pedido[1]
+        descripcion=pedido[2]
+        comuna_id=pedido[3]
+        comuna=db.get_comuna(comuna_id)
+        
+        nombre_comprador=pedido[4]
+        email_comprador=pedido[5]
+        numero_comprador=pedido[6]
+        #print(producto_id,tipo,descripcion,comuna_id,nombre_comprador,email_comprador,numero_comprador)
+
+        
+        region=db.get_region(comuna_id)
+        #print('region: ',region)
+        pedidos=db.get_pedidos_tipo(producto_id)
+        #print(pedidos)
+        #print(producto_id,tipo,descripcion,comuna_id,nombre_comprador,region)
+        dicc_p[producto_id] = {'id':producto_id,'tipo': tipo, 'productos': pedidos,'region':region,'comuna':comuna,
+                                'nombre':nombre_comprador}
+        #print(dicc_p)
+
+    return render_template("ver-pedidos.html",pedidos=dicc_p,cantidad=cantidad_pedidos)
+
 @app.route("/informacion-producto/<int:id_producto>", methods=["GET"])
 def informacion_producto(id_producto):
     
@@ -307,10 +346,74 @@ def informacion_producto(id_producto):
         # Manejar el caso donde el producto no se encuentra
         return render_template('informacion-producto.html', info_producto=None)
 
+@app.route("/informacion-pedido/<int:id_pedido>", methods=["GET"])
+def informacion_pedido(id_pedido):
+    pedido_info = db.get_id_pedido_info(id_pedido)  # obtener información del pedido por su ID
+    if pedido_info:
+        producto_id = pedido_info[0][0]
+        tipo = pedido_info[0][1]
+        descripcion = pedido_info[0][2]
+        comuna_id = pedido_info[0][3]
+        comuna = db.get_comuna(comuna_id)
+        nombre_comprador = pedido_info[0][4]
+        email_comprador = pedido_info[0][5]
+        numero_comprador = pedido_info[0][6]
+        productos = db.get_pedidos_tipo(producto_id)
+        region = db.get_region(comuna_id)
+        
+        info_pedido = {
+            'id': producto_id,
+            'tipo': tipo,
+            'productos': productos,
+            'descripcion': descripcion,
+            'region': region,
+            'comuna': comuna,
+            'nombre_comprador': nombre_comprador,
+            'email_comprador': email_comprador,
+            'numero_comprador': numero_comprador
+        }
+        return render_template('informacion-pedido.html', info_pedido=info_pedido)
+    else:
+        return render_template('informacion-pedido.html', info_pedido=None)
 
+@app.route("/grafico-productos", methods=["GET"])
+def grafico_productos():
+    return render_template("stats-productos.html")
 
+@app.route("/get_stats_productos", methods=["GET"])
+@cross_origin(origin="localhost", supports_credentials=True)
+def get_stats_productos():
 
+    productos_grafico=[]
+    data_productos = db.stats_productos()
+    print(data_productos)
+    for producto in data_productos:
+        nombre_producto = producto[0]
+        cantidad_producto = producto[1]
+        productos_grafico.append([nombre_producto, cantidad_producto])  
+        print(productos_grafico)
+    return jsonify(productos_grafico)
+    
 
+@app.route("/grafico-pedidos", methods=["GET"])
+def grafico_pedidos():
+    return render_template("stats-pedidos.html")
 
+@app.route("/get_stats_pedidos", methods=["GET"])
+@cross_origin(origin="localhost", supports_credentials=True)
+def get_stats_pedidos():
+    pedidos_grafico=[]
+    data_pedidos = db.stats_pedido()
+    
+    for pedido in data_pedidos:
+        nombre_pedido = pedido[0]
+        comuna_producto = pedido[1]
+        pedidos_grafico.append([nombre_pedido, comuna_producto])  
+        print(pedidos_grafico)
+    return jsonify(pedidos_grafico) 
+@app.route("/test", methods=["GET"])
+def grafico_general():
+    return render_template("test.html")
+    
 if __name__ == "__main__":
     app.run(debug=True)
