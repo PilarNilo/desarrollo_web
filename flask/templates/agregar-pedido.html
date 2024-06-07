@@ -34,7 +34,7 @@
             <br>
 
             <div>
-                <select name="producto" id="producto">
+                <select name="producto" id="producto" {% if 'Por favor, seleccione un tipo de producto.' in messages %}style="border-color: red;"{% endif %}>
                     <option value="">Seleccione Tipo de producto...</option>
                     <option value="fruta">Fruta</option>
                     <option value="verdura">Verdura</option>
@@ -47,7 +47,7 @@
             
 
             <div>
-                <select  name="producto-especifico[]" id="producto-especifico" multiple></select>
+                <select  name="producto-especifico[]" id="producto-especifico" multiple {% if 'Por favor, seleccione como mínimo 1 producto y máximo 5.' in messages %}style="border-color: red;"{% endif %}></select>
                
             </div> 
             <br>
@@ -67,7 +67,7 @@
             <br>
 
             <div >
-                <select name="regiones" id="regiones">
+                <select name="regiones" id="regiones" {% if 'Por favor, seleccione una región.' in messages %}style="border-color: red;"{% endif %}>
                     <option value="">Seleccione Región...</option>
                     <option value="Región de Arica y Parinacota">Región de Arica y Parinacota</option>
                     <option value="Región de Tarapaca">Región de Tarapaca</option>
@@ -93,7 +93,7 @@
             <br>
 
             <div >
-                <select name="comuna" id="comuna" >
+                <select name="comuna" id="comuna" {% if 'Por favor, seleccione una comuna.' in messages %}style="border-color: red;"{% endif %}>
                 </select>
             </div>   
             <br>
@@ -102,7 +102,7 @@
             <br>
 
             <div >
-                <input type="text" name="nombre-comprador" id="nombre-comprador"  />
+                <input type="text" name="nombre-comprador" id="nombre-comprador" {% if 'Por favor, ingrese un nombre válido.' in messages %}style="border-color: red;"{% endif %} />
             </div>
             <br>
 
@@ -110,7 +110,7 @@
             <br>
 
             <div >
-                <input type="text" name="email" id="email"  />
+                <input type="text" name="email" id="email" {% if 'Por favor, ingrese un correo electrónico válido.' in messages %}style="border-color: red;"{% endif %}  />
             </div>
             <br>
 
@@ -118,7 +118,7 @@
             <br>
 
             <div >
-                <input type="text" name="numero-comprador"numero-comprador"   />
+                <input type="text" name="numero-comprador"numero-comprador"  {% if 'Por favor, ingrese un número de celular válido.' in messages %}style="border-color: red;"{% endif %} />
             </div>
             <br>
             <div class="button-container">

@@ -38,9 +38,9 @@ Highcharts.chart('container_productos', {
       height: 500  // Ajusta según sea necesario
     },
     title: {
-      text: 'Frecuencia de pedidos',
+      text: 'Frecuencia de pedidos por comuna',
       style: {
-        fontSize: '30px'
+        fontSize: '20px'
       }
     },
     xAxis: {

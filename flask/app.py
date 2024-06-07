@@ -411,7 +411,7 @@ def get_stats_pedidos():
         pedidos_grafico.append([nombre_pedido, comuna_producto])  
         print(pedidos_grafico)
     return jsonify(pedidos_grafico) 
-@app.route("/test", methods=["GET"])
+@app.route("/stats-verduleria", methods=["GET"])
 def grafico_general():
     return render_template("test.html")
     
