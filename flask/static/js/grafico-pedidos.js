@@ -1,60 +1,61 @@
-Highcharts.chart('container_pedidos', {
-    chart: {
-      type: 'bar',
-      width: 800,  // Ajusta según sea necesario
-      height: 500  // Ajusta según sea necesario
-    },
-    title: {
-      text: 'Frecuencia de pedidos',
-      style: {
-        fontSize: '30px'
-      }
-    },
-    xAxis: {
-        categories: []
-    },
-    yAxis: {
-        title: {
-            text: 'Frecuencia'
-          }
+// Highcharts.chart('container_pedidos', {
+//     chart: {
+//       type: 'bar',
+//       width: 600,  // Ajusta según sea necesario
+//       height: 500  // Ajusta según sea necesario
+//     },
+//     title: {
+//       text: 'Frecuencia de pedidos',
+//       style: {
+//         fontSize: '30px'
+//       }
+//     },
+//     xAxis: {
+//         categories: []
+//     },
+//     yAxis: {
+//         title: {
+//             text: 'Frecuencia'
+//           }
         
       
-    },
-    series: [{
-      name: 'Frecuencia',
-      data: []
-    }]
-  });
+//     },
+//     series: [{
+//       name: 'Frecuencia',
+//       data: []
+//     }]
+//   });
 
   
 
-  fetch("http://localhost:5000/get_stats_pedidos")
-  .then((response) => response.json())
-  .then((data) => {
+//   fetch("http://localhost:5000/get_stats_pedidos")
+//   .then((response) => response.json())
+//   .then((data) => {
 
-    // tomamos los nombres
-    let names = data.map((item) => item[0])
-
-
-    // tomamos las frecuencias
-    let frequencies = data.map((item) => item[1])
+//     // tomamos los nombres
+//     let names = data.map((item) => item[0])
 
 
-    // Actualizar el gráfico con los nuevos datos names y frequencies
+//     // tomamos las frecuencias
+//     let frequencies = data.map((item) => item[1])
 
-    // Get the chart by ID
-    const chart = Highcharts.charts.find(
-      (chart) => chart && chart.renderTo.id === "container_pedidos"
-    );
 
-    chart.update({
-        xAxis: {
-            categories: names
-        },
-        series: [{
-            data: frequencies
-        }]
-    });
+//     // Actualizar el gráfico con los nuevos datos names y frequencies
 
-  })
-  .catch((error) => console.error("Error:", error));
+//     // Get the chart by ID
+//     const chart = Highcharts.charts.find(
+//       (chart) => chart && chart.renderTo.id === "container_pedidos"
+//     );
+
+//     chart.update({
+//         xAxis: {
+//             categories: names
+//         },
+//         series: [{
+//             data: frequencies
+//         }]
+//     });
+
+//   })
+//   .catch((error) => console.error("Error:", error));
+

@@ -34,7 +34,7 @@ Highcharts.chart('container_productos', {
   Highcharts.chart('container_pedidos', {
     chart: {
       type: 'bar',
-      width: 800,  // Ajusta según sea necesario
+      width: 600,  // Ajusta según sea necesario
       height: 500  // Ajusta según sea necesario
     },
     title: {
