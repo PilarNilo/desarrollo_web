@@ -27,9 +27,7 @@ que permite expandir y renderizar el resto de las imagenes, pero se visualizan l
 
 #archivos test
 1. Decidí hacer una página que tuviera ambas estadisticas (productos y pedidos)
-por ende la implementación en primera instancia la realicé por separadas para probar como funcionaba (stats-pedidos/productos.html
-, grafico productos/pedidos.js y .css). Luego junté ambos códigos
-y los escribí en los archivos test.js, test.html y test.css de manera que solo * tomar en cuenta los archivos test.html, test.css, test.js *
+en los archivos test.js, test.html y test.css 
 2. usé un gráfico de barras y otro de torta para comparar entre ambos gráficos cual es el mejor, pero en cuanto
 a estadisticas el más fácil de visualizar y entender es el de barra ya que el de torta no queda clara la cantidad
 (sin poner el mouse sobre el gráfico) de cada área.
